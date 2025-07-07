@@ -10,7 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_07_224040) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_07_224228) do
+  create_table "posts", force: :cascade do |t|
+    t.string "title", null: false
+    t.text "content", null: false
+    t.string "category", null: false
+    t.string "author_name", null: false
+    t.integer "user_id", null: false
+    t.date "milestone_date"
+    t.string "milestone_status"
+    t.string "last_editor_name"
+    t.datetime "last_edited_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category", "created_at"], name: "index_posts_on_category_and_created_at"
+    t.index ["category"], name: "index_posts_on_category"
+    t.index ["created_at"], name: "index_posts_on_created_at"
+    t.index ["user_id"], name: "index_posts_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -24,4 +42,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_07_224040) do
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
+
+  add_foreign_key "posts", "users"
 end

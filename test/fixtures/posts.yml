@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  content: MyText
+  category: MyString
+  author_name: MyString
+  user: one
+  milestone_date: 2025-07-08
+  milestone_status: MyString
+  last_editor_name: MyString
+  last_edited_at: 2025-07-08 07:42:28
+
+two:
+  title: MyString
+  content: MyText
+  category: MyString
+  author_name: MyString
+  user: two
+  milestone_date: 2025-07-08
+  milestone_status: MyString
+  last_editor_name: MyString
+  last_edited_at: 2025-07-08 07:42:28
