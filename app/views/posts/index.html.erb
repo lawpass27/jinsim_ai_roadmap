@@ -1,4 +1,86 @@
-<div>
-  <h1 class="font-bold text-4xl">Posts#index</h1>
-  <p>Find me in app/views/posts/index.html.erb</p>
+<div class="max-w-6xl mx-auto">
+  <div class="bg-white rounded-lg shadow-sm p-6">
+    <div class="flex justify-between items-center mb-6">
+      <h1 class="text-2xl font-bold">
+        <% if @posts.any? && @posts.first.category %>
+          <%= @posts.first.category_korean %> 게시판
+        <% else %>
+          전체 게시물
+        <% end %>
+      </h1>
+      
+      <% if @posts.any? && @posts.first.category %>
+        <%= link_to "새 글 작성", new_post_path(category: @posts.first.category), 
+            class: "bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700" %>
+      <% end %>
+    </div>
+
+    <% if @posts.any? %>
+      <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-200">
+          <thead class="bg-gray-50">
+            <tr>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                제목
+              </th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                작성자
+              </th>
+              <% if @posts.first.milestone? %>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  날짜
+                </th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  상태
+                </th>
+              <% end %>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                작성일
+              </th>
+            </tr>
+          </thead>
+          <tbody class="bg-white divide-y divide-gray-200">
+            <% @posts.each do |post| %>
+              <tr class="hover:bg-gray-50">
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <%= link_to post.title, post, class: "text-blue-600 hover:text-blue-800" %>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                  <%= post.author_name %>
+                </td>
+                <% if post.milestone? %>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                    <%= post.milestone_date&.strftime('%Y.%m.%d') %>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <% status_color = case post.milestone_status
+                       when 'completed' then 'bg-blue-600'
+                       when 'in_progress' then 'bg-yellow-400'
+                       else 'bg-gray-300'
+                       end %>
+                    <span class="inline-block px-2 py-1 text-xs font-semibold text-white <%= status_color %> rounded-full">
+                      <%= post.milestone_status_korean %>
+                    </span>
+                  </td>
+                <% end %>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  <%= post.created_at.strftime('%Y.%m.%d') %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    <% else %>
+      <div class="text-center py-12">
+        <p class="text-gray-500 mb-4">아직 작성된 게시물이 없습니다.</p>
+        <%= link_to "첫 번째 글 작성하기", new_post_path, 
+            class: "bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700" %>
+      </div>
+    <% end %>
+
+    <div class="mt-6">
+      <%= link_to "← 대시보드로 돌아가기", root_path, class: "text-gray-600 hover:text-gray-900" %>
+    </div>
+  </div>
 </div>

@@ -1,4 +1,58 @@
-<div>
-  <h1 class="font-bold text-4xl">Admin::Users#edit</h1>
-  <p>Find me in app/views/admin/users/edit.html.erb</p>
+<div class="max-w-4xl mx-auto">
+  <div class="bg-white rounded-lg shadow-sm p-6">
+    <h1 class="text-2xl font-bold mb-6">사용자 정보 수정</h1>
+
+    <%= form_with(model: [:admin, @user], local: true) do |form| %>
+      <% if @user.errors.any? %>
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+          <h3 class="font-bold">다음 오류를 확인해주세요:</h3>
+          <ul class="list-disc list-inside">
+            <% @user.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="space-y-4">
+        <div>
+          <%= form.label :name, "이름", class: "block text-sm font-medium text-gray-700 mb-1" %>
+          <%= form.text_field :name, 
+              class: "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500" %>
+        </div>
+
+        <div>
+          <%= form.label :email, "이메일", class: "block text-sm font-medium text-gray-700 mb-1" %>
+          <%= form.email_field :email, 
+              class: "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500" %>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">권한</label>
+          <p class="text-sm text-gray-600">
+            <% if @user.admin? %>
+              <span class="inline-block px-3 py-1 text-sm font-semibold text-white bg-green-600 rounded-full">
+                관리자
+              </span>
+            <% else %>
+              <span class="inline-block px-3 py-1 text-sm font-semibold text-gray-700 bg-gray-200 rounded-full">
+                일반 사용자
+              </span>
+            <% end %>
+          </p>
+          <p class="text-xs text-gray-500 mt-1">권한 변경은 데이터베이스에서 직접 수정해야 합니다.</p>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">가입일</label>
+          <p class="text-sm text-gray-600"><%= @user.created_at.strftime('%Y년 %m월 %d일 %H:%M') %></p>
+        </div>
+      </div>
+
+      <div class="mt-6 flex items-center space-x-4">
+        <%= form.submit "저장", class: "bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 cursor-pointer" %>
+        <%= link_to "취소", admin_users_path, class: "text-gray-600 hover:text-gray-900" %>
+      </div>
+    <% end %>
+  </div>
 </div>
