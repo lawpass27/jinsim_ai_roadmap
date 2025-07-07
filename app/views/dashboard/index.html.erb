@@ -1,4 +1,137 @@
-<div>
-  <h1 class="font-bold text-4xl">Dashboard#index</h1>
-  <p>Find me in app/views/dashboard/index.html.erb</p>
+<div class="space-y-8">
+  <!-- 마일스톤 타임라인 섹션 -->
+  <div class="bg-white rounded-lg shadow-sm p-6">
+    <div class="flex justify-between items-center mb-6">
+      <h2 class="text-2xl font-bold text-gray-900">마일스톤 타임라인</h2>
+      <%= link_to "마일스톤 추가", new_post_path(category: 'milestone'), class: "bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700" %>
+    </div>
+    
+    <div class="relative">
+      <% if @milestones.any? %>
+        <!-- 타임라인 라인 -->
+        <div class="absolute left-0 right-0 h-0.5 bg-gray-200 top-1/2 transform -translate-y-1/2"></div>
+        
+        <!-- 시작점: 2025년 6월 18일 -->
+        <div class="relative flex items-start mb-8">
+          <div class="absolute left-0 w-full">
+            <div class="relative">
+              <div class="absolute left-0 top-1/2 transform -translate-y-1/2 w-4 h-4 bg-blue-600 rounded-full border-2 border-white shadow"></div>
+              <div class="ml-6 -mt-2">
+                <p class="text-xs text-gray-500">2025년 6월 18일</p>
+                <p class="text-sm font-semibold">AI 스터디 시작</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 마일스톤들 -->
+        <div class="relative overflow-x-auto pb-4">
+          <div class="flex space-x-8 mt-12">
+            <% @milestones.each do |milestone| %>
+              <div class="flex-shrink-0 w-48">
+                <div class="relative">
+                  <% status_color = case milestone.milestone_status
+                     when 'completed' then 'bg-blue-600'
+                     when 'in_progress' then 'bg-yellow-400'
+                     else 'bg-gray-300'
+                     end %>
+                  <div class="absolute left-1/2 transform -translate-x-1/2 -top-6 w-4 h-4 <%= status_color %> rounded-full border-2 border-white shadow"></div>
+                  
+                  <%= link_to milestone, class: "block bg-white border rounded-lg p-3 hover:shadow-md transition-shadow" do %>
+                    <p class="text-xs text-gray-500"><%= milestone.milestone_date&.strftime('%Y년 %m월 %d일') %></p>
+                    <p class="font-semibold text-sm mt-1 line-clamp-2"><%= milestone.title %></p>
+                    <p class="text-xs mt-1">
+                      <span class="<%= status_color %> text-white px-2 py-0.5 rounded-full text-xs">
+                        <%= milestone.milestone_status_korean %>
+                      </span>
+                    </p>
+                  <% end %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      <% else %>
+        <p class="text-gray-500 text-center py-8">아직 등록된 마일스톤이 없습니다.</p>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- 게시판 그리드 -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <!-- AI스터디 섹션 -->
+    <div class="bg-white rounded-lg shadow-sm p-6">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="text-lg font-bold text-gray-900">AI스터디</h3>
+        <%= link_to "새 글 작성", new_post_path(category: 'study'), class: "text-blue-600 hover:text-blue-800 text-sm" %>
+      </div>
+      
+      <% if @recent_study_posts.any? %>
+        <div class="space-y-3">
+          <% @recent_study_posts.each do |post| %>
+            <div class="border-b pb-3 last:border-b-0">
+              <%= link_to post, class: "block hover:bg-gray-50 -mx-2 px-2 py-1 rounded" do %>
+                <h4 class="font-semibold text-sm line-clamp-1"><%= post.title %></h4>
+                <p class="text-xs text-gray-600 mt-1"><%= post.author_name %> · <%= post.created_at.strftime('%m/%d') %></p>
+                <p class="text-xs text-gray-700 mt-1 line-clamp-2"><%= truncate(post.content, length: 50) %></p>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+        <%= link_to "전체 보기", study_posts_path, class: "block text-center text-sm text-blue-600 hover:text-blue-800 mt-4" %>
+      <% else %>
+        <p class="text-gray-500 text-sm text-center py-8">첫 번째 AI 스터디 내용을 공유해주세요!</p>
+      <% end %>
+    </div>
+
+    <!-- 서비스기획 섹션 -->
+    <div class="bg-white rounded-lg shadow-sm p-6">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="text-lg font-bold text-gray-900">서비스기획</h3>
+        <%= link_to "새 글 작성", new_post_path(category: 'planning'), class: "text-blue-600 hover:text-blue-800 text-sm" %>
+      </div>
+      
+      <% if @recent_planning_posts.any? %>
+        <div class="space-y-3">
+          <% @recent_planning_posts.each do |post| %>
+            <div class="border-b pb-3 last:border-b-0">
+              <%= link_to post, class: "block hover:bg-gray-50 -mx-2 px-2 py-1 rounded" do %>
+                <h4 class="font-semibold text-sm line-clamp-1"><%= post.title %></h4>
+                <p class="text-xs text-gray-600 mt-1"><%= post.author_name %> · <%= post.created_at.strftime('%m/%d') %></p>
+                <p class="text-xs text-gray-700 mt-1 line-clamp-2"><%= truncate(post.content, length: 50) %></p>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+        <%= link_to "전체 보기", planning_posts_path, class: "block text-center text-sm text-blue-600 hover:text-blue-800 mt-4" %>
+      <% else %>
+        <p class="text-gray-500 text-sm text-center py-8">서비스 기획 아이디어를 기록해주세요!</p>
+      <% end %>
+    </div>
+
+    <!-- 서비스개발 섹션 -->
+    <div class="bg-white rounded-lg shadow-sm p-6">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="text-lg font-bold text-gray-900">서비스개발</h3>
+        <%= link_to "새 글 작성", new_post_path(category: 'development'), class: "text-blue-600 hover:text-blue-800 text-sm" %>
+      </div>
+      
+      <% if @recent_development_posts.any? %>
+        <div class="space-y-3">
+          <% @recent_development_posts.each do |post| %>
+            <div class="border-b pb-3 last:border-b-0">
+              <%= link_to post, class: "block hover:bg-gray-50 -mx-2 px-2 py-1 rounded" do %>
+                <h4 class="font-semibold text-sm line-clamp-1"><%= post.title %></h4>
+                <p class="text-xs text-gray-600 mt-1"><%= post.author_name %> · <%= post.created_at.strftime('%m/%d') %></p>
+                <p class="text-xs text-gray-700 mt-1 line-clamp-2"><%= truncate(post.content, length: 50) %></p>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+        <%= link_to "전체 보기", development_posts_path, class: "block text-center text-sm text-blue-600 hover:text-blue-800 mt-4" %>
+      <% else %>
+        <p class="text-gray-500 text-sm text-center py-8">개발 계획을 공유해주세요!</p>
+      <% end %>
+    </div>
+  </div>
 </div>

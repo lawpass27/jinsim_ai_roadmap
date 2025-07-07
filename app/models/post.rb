@@ -1,4 +1,8 @@
 class Post < ApplicationRecord
+  # Constants
+  CATEGORIES = %w[study planning development milestone]
+  STATUSES = %w[planned in_progress completed]
+  
   # Associations
   belongs_to :user
   
@@ -11,10 +15,6 @@ class Post < ApplicationRecord
   # Milestone validations
   validates :milestone_date, presence: true, if: :milestone?
   validates :milestone_status, presence: true, inclusion: { in: STATUSES }, if: :milestone?
-  
-  # Constants
-  CATEGORIES = %w[study planning development milestone]
-  STATUSES = %w[planned in_progress completed]
   
   # Scopes
   scope :recent, -> { order(created_at: :desc) }

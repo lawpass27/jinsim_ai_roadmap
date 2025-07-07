@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= content_for(:title) || "Jinsim Ai Roadmap" %></title>
+    <title><%= content_for(:title) || "진심 AI 로드맵" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
@@ -22,8 +22,43 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <main class="container mx-auto mt-28 px-5 flex">
+  <body class="bg-gray-50">
+    <% if user_signed_in? %>
+      <nav class="bg-white shadow-sm border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="flex justify-between h-16">
+            <div class="flex items-center">
+              <%= link_to "진심 AI 로드맵", root_path, class: "text-xl font-bold text-blue-600" %>
+            </div>
+            <div class="flex items-center space-x-4">
+              <span class="text-gray-700"><%= current_user.display_name %></span>
+              <% if current_user.admin? %>
+                <%= link_to "관리자", admin_users_path, class: "text-gray-600 hover:text-gray-900" %>
+              <% end %>
+              <%= button_to "로그아웃", destroy_user_session_path, method: :delete, class: "text-gray-600 hover:text-gray-900" %>
+            </div>
+          </div>
+        </div>
+      </nav>
+    <% end %>
+
+    <% if notice.present? %>
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
+        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+          <span class="block sm:inline"><%= notice %></span>
+        </div>
+      </div>
+    <% end %>
+
+    <% if alert.present? %>
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+          <span class="block sm:inline"><%= alert %></span>
+        </div>
+      </div>
+    <% end %>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <%= yield %>
     </main>
   </body>
