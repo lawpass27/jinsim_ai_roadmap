@@ -13,5 +13,23 @@ Rails.application.routes.draw do
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
   # Defines the root path route ("/")
-  # root "posts#index"
+  root "dashboard#index"
+  
+  resources :posts do
+    collection do
+      get :study
+      get :planning
+      get :development
+      get :milestones
+    end
+  end
+  
+  # 관리자 전용 (윤두철 변호사)
+  namespace :admin do
+    resources :users, only: [:index, :edit, :update] do
+      member do
+        post :reset_password
+      end
+    end
+  end
 end
