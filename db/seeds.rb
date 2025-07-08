@@ -13,7 +13,7 @@ lawyers = [
   { 
     email: 'lawpass2727@gmail.com',    # 윤두철 변호사 (관리자)
     name: '윤두철', 
-    password: '10271027',
+    password: '1027',
     admin: true 
   },
   { 
