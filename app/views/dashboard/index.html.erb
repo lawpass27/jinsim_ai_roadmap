@@ -37,9 +37,9 @@
             자세히 보기
           <% end %>
         <% else %>
-          <%= link_to new_user_session_path, class: "inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-9 px-3" do %>
+          <button data-action="click->login-modal#open" class="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-9 px-3">
             로그인
-          <% end %>
+          </button>
         <% end %>
       </div>
     </div>
@@ -61,9 +61,9 @@
             스터디 노트
           <% end %>
         <% else %>
-          <%= link_to new_user_session_path, class: "inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-9 px-3" do %>
+          <button data-action="click->login-modal#open" class="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-9 px-3">
             로그인
-          <% end %>
+          </button>
         <% end %>
       </div>
     </div>
@@ -141,9 +141,9 @@
             로드맵 보기
           <% end %>
         <% else %>
-          <%= link_to new_user_session_path, class: "inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-9 px-3" do %>
+          <button data-action="click->login-modal#open" class="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-9 px-3">
             로그인
-          <% end %>
+          </button>
         <% end %>
       </div>
     </div>
@@ -257,7 +257,9 @@
             <% if user_signed_in? %>
               <%= link_to "전체 보기", development_posts_path, class: "block text-center text-sm text-primary hover:text-primary/80 mt-4" %>
             <% else %>
-              <%= link_to "로그인하여 전체 보기", new_user_session_path, class: "block text-center text-sm text-muted-foreground hover:text-foreground mt-4" %>
+              <button data-action="click->login-modal#open" class="block w-full text-center text-sm text-muted-foreground hover:text-foreground mt-4">
+                로그인하여 전체 보기
+              </button>
             <% end %>
           <% else %>
             <p class="text-center text-muted-foreground py-8">아직 개발 관련 게시물이 없습니다.</p>
@@ -293,7 +295,9 @@
             <% if user_signed_in? %>
               <%= link_to "전체 보기", study_posts_path, class: "block text-center text-sm text-primary hover:text-primary/80 mt-4" %>
             <% else %>
-              <%= link_to "로그인하여 전체 보기", new_user_session_path, class: "block text-center text-sm text-muted-foreground hover:text-foreground mt-4" %>
+              <button data-action="click->login-modal#open" class="block w-full text-center text-sm text-muted-foreground hover:text-foreground mt-4">
+                로그인하여 전체 보기
+              </button>
             <% end %>
           <% else %>
             <p class="text-center text-muted-foreground py-8">첫 번째 AI 스터디 내용을 공유해주세요!</p>
@@ -329,7 +333,9 @@
             <% if user_signed_in? %>
               <%= link_to "전체 보기", planning_posts_path, class: "block text-center text-sm text-primary hover:text-primary/80 mt-4" %>
             <% else %>
-              <%= link_to "로그인하여 전체 보기", new_user_session_path, class: "block text-center text-sm text-muted-foreground hover:text-foreground mt-4" %>
+              <button data-action="click->login-modal#open" class="block w-full text-center text-sm text-muted-foreground hover:text-foreground mt-4">
+                로그인하여 전체 보기
+              </button>
             <% end %>
           <% else %>
             <p class="text-center text-muted-foreground py-8">서비스 기획 아이디어를 기록해주세요!</p>
@@ -365,7 +371,9 @@
             <% if user_signed_in? %>
               <%= link_to "전체 보기", milestones_posts_path, class: "block text-center text-sm text-primary hover:text-primary/80 mt-4" %>
             <% else %>
-              <%= link_to "로그인하여 전체 보기", new_user_session_path, class: "block text-center text-sm text-muted-foreground hover:text-foreground mt-4" %>
+              <button data-action="click->login-modal#open" class="block w-full text-center text-sm text-muted-foreground hover:text-foreground mt-4">
+                로그인하여 전체 보기
+              </button>
             <% end %>
           <% else %>
             <p class="text-center text-muted-foreground py-8">아직 등록된 마일스톤이 없습니다.</p>
