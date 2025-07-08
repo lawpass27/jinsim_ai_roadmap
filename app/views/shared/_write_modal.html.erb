@@ -1,0 +1,135 @@
+<!-- Write Modal -->
+<div id="writeModal" class="fixed inset-0 z-50 hidden" data-controller="modal">
+  <div class="fixed inset-0 modal-backdrop" data-action="click->modal#closeOnBackdrop"></div>
+  <div class="fixed inset-0 overflow-y-auto">
+    <div class="flex min-h-full items-center justify-center p-4 text-center">
+      <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all w-full max-w-2xl animate-slide-in">
+        <div class="bg-white px-6 py-4">
+          <div class="flex items-center justify-between border-b pb-4 mb-6">
+            <div class="flex items-center space-x-3">
+              <div class="text-2xl">📝</div>
+              <h2 class="text-2xl font-bold gradient-text">새 글 작성</h2>
+            </div>
+            <button class="rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none" data-action="click->modal#close">
+              <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+              </svg>
+            </button>
+          </div>
+          
+          <%= form_with model: Post.new, local: true, html: { id: "writeForm", data: { turbo: false } }, class: "space-y-6" do |f| %>
+            <div class="space-y-2">
+              <%= f.label :category, class: "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" do %>
+                카테고리 <span class="text-red-500">*</span>
+              <% end %>
+              <%= f.select :category, options_for_select([
+                ['카테고리를 선택해주세요', ''],
+                ['🚀 서비스개발', 'development'],
+                ['🧠 AI 스터디', 'study'],
+                ['💡 서비스기획', 'planning'],
+                ['🎯 마일스톤', 'milestone']
+              ]), {}, { 
+                class: "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50", 
+                required: true 
+              } %>
+            </div>
+
+            <div class="space-y-2 milestone-fields hidden" data-write-modal-target="milestoneFields">
+              <%= f.label :milestone_date, class: "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" do %>
+                마일스톤 날짜 <span class="text-red-500">*</span>
+              <% end %>
+              <%= f.date_field :milestone_date, class: "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" %>
+            </div>
+
+            <div class="space-y-2 milestone-fields hidden" data-write-modal-target="milestoneStatusFields">
+              <%= f.label :milestone_status, class: "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" do %>
+                마일스톤 상태 <span class="text-red-500">*</span>
+              <% end %>
+              <%= f.select :milestone_status, options_for_select([
+                ['계획', 'planned'],
+                ['진행중', 'in_progress'],
+                ['완료', 'completed']
+              ]), {}, { 
+                class: "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+              } %>
+            </div>
+
+            <div class="space-y-2">
+              <%= f.label :title, class: "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" do %>
+                제목 <span class="text-red-500">*</span>
+              <% end %>
+              <%= f.text_field :title, 
+                placeholder: "글 제목을 입력해주세요", 
+                maxlength: 255, 
+                required: true,
+                class: "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" %>
+            </div>
+
+            <div class="space-y-2">
+              <%= f.label :content, class: "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" do %>
+                내용 <span class="text-red-500">*</span>
+              <% end %>
+              <%= f.text_area :content, 
+                placeholder: "내용을 입력해주세요...\n\n• 개발 진행 상황\n• 학습한 내용\n• 팀 논의 사항\n• 기타 공유하고 싶은 내용", 
+                rows: 8, 
+                required: true,
+                data: { "write-modal-target": "contentField", action: "input->write-modal#updateCharCount" },
+                class: "flex min-h-[120px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 resize-none" %>
+              <div class="flex justify-between items-center text-xs text-muted-foreground">
+                <span>Markdown 문법을 지원합니다</span>
+                <span data-write-modal-target="charCount">0 글자</span>
+              </div>
+            </div>
+
+            <div class="flex justify-end space-x-3 pt-4">
+              <button type="button" class="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2" data-action="click->modal#close">
+                취소
+              </button>
+              <button type="submit" class="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2">
+                <span class="mr-2">📝</span>
+                글 발행하기
+              </button>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const categorySelect = document.querySelector('#writeForm select[name="post[category]"]');
+  const milestoneFields = document.querySelectorAll('.milestone-fields');
+  
+  if (categorySelect) {
+    categorySelect.addEventListener('change', function() {
+      if (this.value === 'milestone') {
+        milestoneFields.forEach(field => field.classList.remove('hidden'));
+      } else {
+        milestoneFields.forEach(field => field.classList.add('hidden'));
+      }
+    });
+  }
+  
+  // Character counter
+  const contentTextarea = document.querySelector('#writeForm textarea[name="post[content]"]');
+  const charCount = document.querySelector('[data-write-modal-target="charCount"]');
+  
+  if (contentTextarea && charCount) {
+    contentTextarea.addEventListener('input', function() {
+      const count = this.value.length;
+      charCount.textContent = `${count.toLocaleString()} 글자`;
+      
+      // Color based on character count
+      if (count > 5000) {
+        charCount.className = 'text-red-500';
+      } else if (count > 3000) {
+        charCount.className = 'text-yellow-500';
+      } else {
+        charCount.className = 'text-muted-foreground';
+      }
+    });
+  }
+});
+</script>

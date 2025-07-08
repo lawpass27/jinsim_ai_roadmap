@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>법무법인 진심 - 서비스 개발 일지</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50">
+    <!-- Header -->
+    <header class="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <div class="container mx-auto px-4">
+            <div class="flex h-16 items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <div class="text-2xl font-bold gradient-text">법무법인 진심</div>
+                    <div class="hidden md:flex items-center space-x-1 text-sm text-muted-foreground">
+                        <span class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80">
+                            개발 진행중
+                        </span>
+                    </div>
+                </div>
+                <nav class="hidden md:flex items-center space-x-6 text-sm font-medium">
+                    <a href="#home" class="transition-colors hover:text-foreground/80 text-foreground/60">홈</a>
+                    <a href="#milestones" class="transition-colors hover:text-foreground/80 text-foreground/60">개발 여정</a>
+                    <a href="#study" class="transition-colors hover:text-foreground/80 text-foreground/60">AI 스터디</a>
+                    <a href="#team" class="transition-colors hover:text-foreground/80 text-foreground/60">팀 소개</a>
+                    <a href="#board" class="transition-colors hover:text-foreground/80 text-foreground/60">게시판</a>
+                    <button class="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-9 px-4 py-2" onclick="openWriteModal()">
+                        ✍️ 글쓰기
+                    </button>
+                </nav>
+                
+                <!-- Mobile menu button -->
+                <button class="md:hidden inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 w-9" onclick="toggleMobileMenu()">
+                    <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+            
+            <!-- Mobile menu -->
+            <div id="mobileMenu" class="md:hidden hidden border-t bg-background">
+                <div class="container mx-auto px-4 py-4">
+                    <nav class="flex flex-col space-y-4">
+                        <a href="#home" class="transition-colors hover:text-foreground/80 text-foreground/60 py-2">홈</a>
+                        <a href="#milestones" class="transition-colors hover:text-foreground/80 text-foreground/60 py-2">개발 여정</a>
+                        <a href="#study" class="transition-colors hover:text-foreground/80 text-foreground/60 py-2">AI 스터디</a>
+                        <a href="#team" class="transition-colors hover:text-foreground/80 text-foreground/60 py-2">팀 소개</a>
+                        <a href="#board" class="transition-colors hover:text-foreground/80 text-foreground/60 py-2">게시판</a>
+                        <button class="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2 w-full" onclick="openWriteModal()">
+                            ✍️ 새 글 작성
+                        </button>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- Hero Section -->
+        <section id="home" class="text-center py-16 animate-fade-in">
+            <div class="space-y-6">
+                <h1 class="text-4xl md:text-6xl font-bold tracking-tight">
+                    <span class="gradient-text">법률 서비스의</span><br>
+                    <span class="text-foreground">새로운 패러다임</span>
+                </h1>
+                <p class="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+                    법무법인 진심의 4명의 변호사가 함께 만들어가는<br>
+                    혁신적인 인터넷 서비스 개발 여정을 기록합니다.
+                </p>
+                <div class="flex justify-center">
+                    <div class="inline-flex items-center rounded-lg bg-muted px-3 py-1 text-sm font-medium">
+                        🚀 2025년 6월 18일 프로젝트 시작
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dashboard Grid -->
+        <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+            <!-- Progress Card -->
+            <div class="rounded-lg border bg-card text-card-foreground shadow-sm glass-card hover:shadow-lg transition-all duration-300 floating-animation">
+                <div class="p-6">
+                    <div class="flex items-center space-x-2 mb-4">
+                        <div class="text-2xl">🚀</div>
+                        <h3 class="font-semibold leading-none tracking-tight">프로젝트 진행률</h3>
+                    </div>
+                    <p class="text-sm text-muted-foreground mb-4">전체 개발 진행 상황</p>
+                    <div class="w-full bg-secondary rounded-full h-2 mb-2">
+                        <div class="bg-gradient-to-r from-indigo-500 to-purple-600 h-2 rounded-full transition-all duration-500" style="width: 25%"></div>
+                    </div>
+                    <p class="text-sm font-medium mb-4"><strong class="text-lg">25%</strong> 완료 (기획 단계)</p>
+                    <button class="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-9 px-3">
+                        자세히 보기
+                    </button>
+                </div>
+            </div>
+
+            <!-- AI Study Card -->
+            <div class="rounded-lg border bg-card text-card-foreground shadow-sm glass-card hover:shadow-lg transition-all duration-300 floating-animation" style="animation-delay: 0.2s">
+                <div class="p-6">
+                    <div class="flex items-center space-x-2 mb-4">
+                        <div class="text-2xl">🧠</div>
+                        <h3 class="font-semibold leading-none tracking-tight">AI 스터디</h3>
+                    </div>
+                    <p class="text-sm text-muted-foreground mb-4">변호사들의 AI 학습 현황</p>
+                    <div class="w-full bg-secondary rounded-full h-2 mb-2">
+                        <div class="bg-gradient-to-r from-green-500 to-emerald-600 h-2 rounded-full transition-all duration-500" style="width: 60%"></div>
+                    </div>
+                    <p class="text-sm font-medium mb-4"><strong class="text-lg">8회</strong> 스터디 완료</p>
+                    <button class="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-9 px-3">
+                        스터디 노트
+                    </button>
+                </div>
+            </div>
+
+            <!-- Recent Posts Card -->
+            <div class="rounded-lg border bg-card text-card-foreground shadow-sm glass-card hover:shadow-lg transition-all duration-300 floating-animation" style="animation-delay: 0.4s">
+                <div class="p-6">
+                    <div class="flex items-center space-x-2 mb-4">
+                        <div class="text-2xl">📝</div>
+                        <h3 class="font-semibold leading-none tracking-tight">최근 게시물</h3>
+                    </div>
+                    <p class="text-sm text-muted-foreground mb-4">팀 활동 및 개발 소식</p>
+                    <div class="space-y-2 mb-4">
+                        <div class="flex items-center space-x-2 text-sm">
+                            <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                            <span>ChatGPT-4 법률 활용 사례 연구</span>
+                        </div>
+                        <div class="flex items-center space-x-2 text-sm">
+                            <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                            <span>사업 모델 검토 회의록</span>
+                        </div>
+                        <div class="flex items-center space-x-2 text-sm">
+                            <div class="w-2 h-2 bg-purple-500 rounded-full"></div>
+                            <span>기술 스택 결정 과정</span>
+                        </div>
+                    </div>
+                    <div class="flex space-x-2">
+                        <button class="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 px-3">
+                            게시판 보기
+                        </button>
+                        <button class="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-green-600 text-white hover:bg-green-700 h-9 px-3" onclick="openWriteModal()">
+                            ✍️ 글쓰기
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Next Goals Card -->
+            <div class="rounded-lg border bg-card text-card-foreground shadow-sm glass-card hover:shadow-lg transition-all duration-300 floating-animation" style="animation-delay: 0.6s">
+                <div class="p-6">
+                    <div class="flex items-center space-x-2 mb-4">
+                        <div class="text-2xl">🎯</div>
+                        <h3 class="font-semibold leading-none tracking-tight">다음 목표</h3>
+                    </div>
+                    <p class="text-sm text-muted-foreground mb-4">앞으로의 계획</p>
+                    <div class="space-y-2 mb-4">
+                        <div class="flex items-center space-x-2 text-sm">
+                            <div class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-blue-100 text-blue-800">
+                                진행중
+                            </div>
+                            <span>MVP 프로토타입 완성</span>
+                        </div>
+                        <div class="flex items-center space-x-2 text-sm">
+                            <div class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-yellow-100 text-yellow-800">
+                                대기중
+                            </div>
+                            <span>베타 테스터 모집</span>
+                        </div>
+                        <div class="flex items-center space-x-2 text-sm">
+                            <div class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-gray-100 text-gray-800">
+                                계획
+                            </div>
+                            <span>법률 자문 AI 모델 구축</span>
+                        </div>
+                    </div>
+                    <button class="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-9 px-3">
+                        로드맵 보기
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Team Section -->
+        <section id="team" class="rounded-lg border bg-card text-card-foreground shadow-sm mb-8">
+            <div class="p-6">
+                <h2 class="text-3xl font-bold tracking-tight mb-6">팀 소개</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="text-center group hover:scale-105 transition-transform duration-300">
+                        <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white text-2xl font-bold shadow-lg group-hover:shadow-xl transition-shadow">
+                            이
+                        </div>
+                        <h3 class="font-semibold text-lg">이정민 변호사</h3>
+                        <div class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-primary text-primary-foreground my-2">
+                            프로젝트 리더
+                        </div>
+                        <p class="text-sm text-muted-foreground">15년 경력의 베테랑 변호사로, 프로젝트 전체 방향성과 법률 서비스 기획을 담당합니다.</p>
+                    </div>
+                    
+                    <div class="text-center group hover:scale-105 transition-transform duration-300">
+                        <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br from-green-500 to-teal-600 flex items-center justify-center text-white text-2xl font-bold shadow-lg group-hover:shadow-xl transition-shadow">
+                            윤
+                        </div>
+                        <h3 class="font-semibold text-lg">윤두철 변호사</h3>
+                        <div class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-green-100 text-green-800 my-2">
+                            기술 총괄
+                        </div>
+                        <p class="text-sm text-muted-foreground">IT 법률 전문가로, 기술과 법률의 융합 서비스 개발을 주도합니다.</p>
+                    </div>
+                    
+                    <div class="text-center group hover:scale-105 transition-transform duration-300">
+                        <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center text-white text-2xl font-bold shadow-lg group-hover:shadow-xl transition-shadow">
+                            류
+                        </div>
+                        <h3 class="font-semibold text-lg">류제성 변호사</h3>
+                        <div class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-orange-100 text-orange-800 my-2">
+                            사업 개발
+                        </div>
+                        <p class="text-sm text-muted-foreground">스타트업 법률 지원 경험이 풍부하며, 사업 모델 구축과 투자 유치를 담당합니다.</p>
+                    </div>
+                    
+                    <div class="text-center group hover:scale-105 transition-transform duration-300">
+                        <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center text-white text-2xl font-bold shadow-lg group-hover:shadow-xl transition-shadow">
+                            장
+                        </div>
+                        <h3 class="font-semibold text-lg">장우혁 변호사</h3>
+                        <div class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-purple-100 text-purple-800 my-2">
+                            UX/UI 기획
+                        </div>
+                        <p class="text-sm text-muted-foreground">사용자 경험 설계와 서비스 인터페이스 기획을 맡고 있습니다.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Board Section -->
+        <section id="board" class="rounded-lg border bg-card text-card-foreground shadow-sm mb-8">
+            <div class="p-6">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-3xl font-bold tracking-tight">게시판</h2>
+                    <button class="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-green-600 text-white hover:bg-green-700 h-10 px-4" onclick="openWriteModal()">
+                        <span class="mr-2">✍️</span>
+                        새 글 작성
+                    </button>
+                </div>
+                
+                <div class="flex space-x-1 border-b mb-6 overflow-x-auto">
+                    <button class="inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border-b-2 border-primary text-foreground board-tab active flex-shrink-0" onclick="showBoard('dev')">
+                        개발 일지
+                    </button>
+                    <button class="inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border-b-2 border-transparent text-muted-foreground hover:text-foreground board-tab flex-shrink-0" onclick="showBoard('study')">
+                        AI 스터디
+                    </button>
+                    <button class="inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border-b-2 border-transparent text-muted-foreground hover:text-foreground board-tab flex-shrink-0" onclick="showBoard('notice')">
+                        공지사항
+                    </button>
+                    <button class="inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border-b-2 border-transparent text-muted-foreground hover:text-foreground board-tab flex-shrink-0" onclick="showBoard('community')">
+                        커뮤니티
+                    </button>
+                </div>
+
+                <div id="dev-board" class="board-content">
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between p-4 border rounded-lg hover:bg-accent/50 transition-colors cursor-pointer">
+                            <div class="space-y-2">
+                                <h4 class="font-medium">Rails 8 + PostgreSQL 환경 구축 완료</h4>
+                                <div class="flex items-center space-x-4 text-sm text-muted-foreground">
+                                    <span>윤두철</span>
+                                    <span>2024.12.15</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-4 text-sm text-muted-foreground">
+                                <span class="flex items-center space-x-1">
+                                    <span>💬</span>
+                                    <span>12</span>
+                                </span>
+                                <span class="flex items-center space-x-1">
+                                    <span>👁</span>
+                                    <span>48</span>
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center justify-between p-4 border rounded-lg hover:bg-accent/50 transition-colors cursor-pointer">
+                            <div class="space-y-2">
+                                <h4 class="font-medium">사업 모델 캔버스 v2.0 업데이트</h4>
+                                <div class="flex items-center space-x-4 text-sm text-muted-foreground">
+                                    <span>류제성</span>
+                                    <span>2024.12.14</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-4 text-sm text-muted-foreground">
+                                <span class="flex items-center space-x-1">
+                                    <span>💬</span>
+                                    <span>8</span>
+                                </span>
+                                <span class="flex items-center space-x-1">
+                                    <span>👁</span>
+                                    <span>32</span>
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center justify-between p-4 border rounded-lg hover:bg-accent/50 transition-colors cursor-pointer">
+                            <div class="space-y-2">
+                                <h4 class="font-medium">UI/UX 와이어프레임 초안 검토</h4>
+                                <div class="flex items-center space-x-4 text-sm text-muted-foreground">
+                                    <span>장우혁</span>
+                                    <span>2024.12.13</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-4 text-sm text-muted-foreground">
+                                <span class="flex items-center space-x-1">
+                                    <span>💬</span>
+                                    <span>15</span>
+                                </span>
+                                <span class="flex items-center space-x-1">
+                                    <span>👁</span>
+                                    <span>56</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="study-board" class="board-content hidden">
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between p-4 border rounded-lg hover:bg-accent/50 transition-colors cursor-pointer">
+                            <div class="space-y-2">
+                                <h4 class="font-medium">LangChain을 활용한 법률 문서 분석 실습</h4>
+                                <div class="flex items-center space-x-4 text-sm text-muted-foreground">
+                                    <span>이정민</span>
+                                    <span>2024.12.12</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-4 text-sm text-muted-foreground">
+                                <span class="flex items-center space-x-1">
+                                    <span>💬</span>
+                                    <span>6</span>
+                                </span>
+                                <span class="flex items-center space-x-1">
+                                    <span>👁</span>
+                                    <span>24</span>
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center justify-between p-4 border rounded-lg hover:bg-accent/50 transition-colors cursor-pointer">
+                            <div class="space-y-2">
+                                <h4 class="font-medium">프롬프트 엔지니어링 베스트 프랙티스</h4>
+                                <div class="flex items-center space-x-4 text-sm text-muted-foreground">
+                                    <span>윤두철</span>
+                                    <span>2024.12.10</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-4 text-sm text-muted-foreground">
+                                <span class="flex items-center space-x-1">
+                                    <span>💬</span>
+                                    <span>10</span>
+                                </span>
+                                <span class="flex items-center space-x-1">
+                                    <span>👁</span>
+                                    <span>35</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="notice-board" class="board-content hidden">
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between p-4 border rounded-lg hover:bg-accent/50 transition-colors cursor-pointer">
+                            <div class="space-y-2">
+                                <h4 class="font-medium">주간 개발 미팅 일정 안내</h4>
+                                <div class="flex items-center space-x-4 text-sm text-muted-foreground">
+                                    <span>이정민</span>
+                                    <span>2024.12.15</span>
+                                    <span class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-red-100 text-red-800">
+                                        긴급
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-4 text-sm text-muted-foreground">
+                                <span class="flex items-center space-x-1">
+                                    <span>💬</span>
+                                    <span>3</span>
+                                </span>
+                                <span class="flex items-center space-x-1">
+                                    <span>👁</span>
+                                    <span>28</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="community-board" class="board-content hidden">
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between p-4 border rounded-lg hover:bg-accent/50 transition-colors cursor-pointer">
+                            <div class="space-y-2">
+                                <h4 class="font-medium">베타 테스터 모집 예정 안내</h4>
+                                <div class="flex items-center space-x-4 text-sm text-muted-foreground">
+                                    <span>류제성</span>
+                                    <span>2024.12.14</span>
+                                    <span class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-green-100 text-green-800">
+                                        모집중
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-4 text-sm text-muted-foreground">
+                                <span class="flex items-center space-x-1">
+                                    <span>💬</span>
+                                    <span>22</span>
+                                </span>
+                                <span class="flex items-center space-x-1">
+                                    <span>👁</span>
+                                    <span>89</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Timeline Section -->
+        <section id="milestones" class="rounded-lg border bg-card text-card-foreground shadow-sm mb-8">
+            <div class="p-6">
+                <h2 class="text-3xl font-bold tracking-tight mb-8">개발 마일스톤</h2>
+                <div class="relative">
+                    <!-- Timeline Line - Desktop only -->
+                    <div class="absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-indigo-500 to-purple-600 transform -translate-x-px hidden lg:block"></div>
+                    
+                    <!-- Mobile Timeline Line -->
+                    <div class="absolute left-6 top-0 bottom-0 w-0.5 bg-gradient-to-b from-indigo-500 to-purple-600 lg:hidden"></div>
+                    
+                    <div class="space-y-12">
+                        <!-- Milestone 1 -->
+                        <div class="relative flex items-center">
+                            <!-- Mobile layout -->
+                            <div class="lg:hidden flex items-start space-x-4">
+                                <div class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-semibold shadow-lg">
+                                    1
+                                </div>
+                                <div class="flex-1">
+                                    <div class="rounded-lg border bg-card text-card-foreground shadow-sm p-4 glass-card">
+                                        <div class="inline-flex items-center rounded-full border px-3 py-1 text-sm font-semibold bg-green-100 text-green-800 border-green-200 mb-2">
+                                            2025.06.18
+                                        </div>
+                                        <h3 class="font-semibold text-lg mb-2">AI Study 시작</h3>
+                                        <p class="text-muted-foreground text-sm">4명의 변호사가 AI 기술 학습을 시작. 법률 서비스에 AI를 접목하기 위한 기초 연구 및 스터디 진행.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Desktop layout -->
+                            <div class="hidden lg:flex items-center w-full">
+                                <div class="flex-1 pr-8 text-right">
+                                    <div class="rounded-lg border bg-card text-card-foreground shadow-sm p-6 glass-card hover:shadow-lg transition-all duration-300">
+                                        <h3 class="font-semibold text-lg mb-2">AI Study 시작</h3>
+                                        <p class="text-muted-foreground">4명의 변호사가 AI 기술 학습을 시작. 법률 서비스에 AI를 접목하기 위한 기초 연구 및 스터디 진행.</p>
+                                    </div>
+                                </div>
+                                <div class="absolute left-1/2 transform -translate-x-1/2">
+                                    <div class="flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-semibold shadow-lg">
+                                        1
+                                    </div>
+                                </div>
+                                <div class="flex-1 pl-8">
+                                    <div class="inline-flex items-center rounded-full border px-3 py-1 text-sm font-semibold bg-green-100 text-green-800 border-green-200">
+                                        2025.06.18
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Milestone 2 -->
+                        <div class="relative flex items-center">
+                            <!-- Mobile layout -->
+                            <div class="lg:hidden flex items-start space-x-4">
+                                <div class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold shadow-lg">
+                                    2
+                                </div>
+                                <div class="flex-1">
+                                    <div class="rounded-lg border bg-card text-card-foreground shadow-sm p-4 glass-card">
+                                        <div class="inline-flex items-center rounded-full border px-3 py-1 text-sm font-semibold bg-blue-100 text-blue-800 border-blue-200 mb-2">
+                                            2025.08.15
+                                        </div>
+                                        <h3 class="font-semibold text-lg mb-2">프로젝트 기획 완료</h3>
+                                        <p class="text-muted-foreground text-sm">AI 기반 법률 서비스 아이디어 구체화. 사업 모델 설계 및 기술 요구사항 분석 완료.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Desktop layout -->
+                            <div class="hidden lg:flex items-center w-full">
+                                <div class="flex-1 pr-8 text-right">
+                                    <div class="inline-flex items-center rounded-full border px-3 py-1 text-sm font-semibold bg-blue-100 text-blue-800 border-blue-200">
+                                        2025.08.15
+                                    </div>
+                                </div>
+                                <div class="absolute left-1/2 transform -translate-x-1/2">
+                                    <div class="flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold shadow-lg">
+                                        2
+                                    </div>
+                                </div>
+                                <div class="flex-1 pl-8">
+                                    <div class="rounded-lg border bg-card text-card-foreground shadow-sm p-6 glass-card hover:shadow-lg transition-all duration-300">
+                                        <h3 class="font-semibold text-lg mb-2">프로젝트 기획 완료</h3>
+                                        <p class="text-muted-foreground">AI 기반 법률 서비스 아이디어 구체화. 사업 모델 설계 및 기술 요구사항 분석 완료.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Milestone 3 -->
+                        <div class="relative flex items-center">
+                            <!-- Mobile layout -->
+                            <div class="lg:hidden flex items-start space-x-4">
+                                <div class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-r from-green-500 to-teal-600 text-white font-semibold shadow-lg">
+                                    3
+                                </div>
+                                <div class="flex-1">
+                                    <div class="rounded-lg border bg-card text-card-foreground shadow-sm p-4 glass-card">
+                                        <div class="inline-flex items-center rounded-full border px-3 py-1 text-sm font-semibold bg-yellow-100 text-yellow-800 border-yellow-200 mb-2">
+                                            2025.10.01
+                                        </div>
+                                        <h3 class="font-semibold text-lg mb-2">기술 스택 결정</h3>
+                                        <p class="text-muted-foreground text-sm">Rails 8, PostgreSQL, React 기반의 개발 환경 구축 완료. AI 통합을 위한 Python 환경 준비.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Desktop layout -->
+                            <div class="hidden lg:flex items-center w-full">
+                                <div class="flex-1 pr-8 text-right">
+                                    <div class="rounded-lg border bg-card text-card-foreground shadow-sm p-6 glass-card hover:shadow-lg transition-all duration-300">
+                                        <h3 class="font-semibold text-lg mb-2">기술 스택 결정</h3>
+                                        <p class="text-muted-foreground">Rails 8, PostgreSQL, React 기반의 개발 환경 구축 완료. AI 통합을 위한 Python 환경 준비.</p>
+                                    </div>
+                                </div>
+                                <div class="absolute left-1/2 transform -translate-x-1/2">
+                                    <div class="flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-r from-green-500 to-teal-600 text-white font-semibold shadow-lg">
+                                        3
+                                    </div>
+                                </div>
+                                <div class="flex-1 pl-8">
+                                    <div class="inline-flex items-center rounded-full border px-3 py-1 text-sm font-semibold bg-yellow-100 text-yellow-800 border-yellow-200">
+                                        2025.10.01
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Milestone 4 -->
+                        <div class="relative flex items-center">
+                            <!-- Mobile layout -->
+                            <div class="lg:hidden flex items-start space-x-4">
+                                <div class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-r from-orange-500 to-red-600 text-white font-semibold shadow-lg">
+                                    4
+                                </div>
+                                <div class="flex-1">
+                                    <div class="rounded-lg border bg-card text-card-foreground shadow-sm p-4 glass-card">
+                                        <div class="inline-flex items-center rounded-full border px-3 py-1 text-sm font-semibold bg-orange-100 text-orange-800 border-orange-200 mb-2">
+                                            2025.12.01
+                                        </div>
+                                        <h3 class="font-semibold text-lg mb-2">MVP 개발 시작</h3>
+                                        <p class="text-muted-foreground text-sm">최소 기능 제품 개발 착수. 사용자 인증, 문서 관리, 기본 AI 상담 기능 구현 예정.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Desktop layout -->
+                            <div class="hidden lg:flex items-center w-full">
+                                <div class="flex-1 pr-8 text-right">
+                                    <div class="inline-flex items-center rounded-full border px-3 py-1 text-sm font-semibold bg-orange-100 text-orange-800 border-orange-200">
+                                        2025.12.01
+                                    </div>
+                                </div>
+                                <div class="absolute left-1/2 transform -translate-x-1/2">
+                                    <div class="flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-r from-orange-500 to-red-600 text-white font-semibold shadow-lg">
+                                        4
+                                    </div>
+                                </div>
+                                <div class="flex-1 pl-8">
+                                    <div class="rounded-lg border bg-card text-card-foreground shadow-sm p-6 glass-card hover:shadow-lg transition-all duration-300">
+                                        <h3 class="font-semibold text-lg mb-2">MVP 개발 시작</h3>
+                                        <p class="text-muted-foreground">최소 기능 제품 개발 착수. 사용자 인증, 문서 관리, 기본 AI 상담 기능 구현 예정.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Milestone 5 -->
+                        <div class="relative flex items-center">
+                            <!-- Mobile layout -->
+                            <div class="lg:hidden flex items-start space-x-4">
+                                <div class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-r from-purple-500 to-pink-600 text-white font-semibold shadow-lg">
+                                    5
+                                </div>
+                                <div class="flex-1">
+                                    <div class="rounded-lg border bg-card text-card-foreground shadow-sm p-4 glass-card">
+                                        <div class="inline-flex items-center rounded-full border px-3 py-1 text-sm font-semibold bg-purple-100 text-purple-800 border-purple-200 mb-2">
+                                            2026.03.01
+                                        </div>
+                                        <h3 class="font-semibold text-lg mb-2">베타 테스트</h3>
+                                        <p class="text-muted-foreground text-sm">선별된 법률 전문가 및 잠재 고객 대상 베타 테스트 진행. 피드백 수집 및 개선.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Desktop layout -->
+                            <div class="hidden lg:flex items-center w-full">
+                                <div class="flex-1 pr-8 text-right">
+                                    <div class="rounded-lg border bg-card text-card-foreground shadow-sm p-6 glass-card hover:shadow-lg transition-all duration-300">
+                                        <h3 class="font-semibold text-lg mb-2">베타 테스트</h3>
+                                        <p class="text-muted-foreground">선별된 법률 전문가 및 잠재 고객 대상 베타 테스트 진행. 피드백 수집 및 개선.</p>
+                                    </div>
+                                </div>
+                                <div class="absolute left-1/2 transform -translate-x-1/2">
+                                    <div class="flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-r from-purple-500 to-pink-600 text-white font-semibold shadow-lg">
+                                        5
+                                    </div>
+                                </div>
+                                <div class="flex-1 pl-8">
+                                    <div class="inline-flex items-center rounded-full border px-3 py-1 text-sm font-semibold bg-purple-100 text-purple-800 border-purple-200">
+                                        2026.03.01
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Milestone 6 - Final -->
+                        <div class="relative flex items-center">
+                            <!-- Mobile layout -->
+                            <div class="lg:hidden flex items-start space-x-4">
+                                <div class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-r from-emerald-500 to-green-600 text-white font-semibold shadow-lg shadow-glow">
+                                    🚀
+                                </div>
+                                <div class="flex-1">
+                                    <div class="rounded-lg border bg-card text-card-foreground shadow-sm p-4 glass-card border-green-200 bg-green-50">
+                                        <div class="inline-flex items-center rounded-full border px-3 py-1 text-sm font-semibold bg-emerald-100 text-emerald-800 border-emerald-200 mb-2">
+                                            2026.06.01
+                                        </div>
+                                        <h3 class="font-semibold text-lg mb-2 text-green-800">정식 서비스 런칭</h3>
+                                        <p class="text-green-700 text-sm">완성된 법률 AI 서비스 정식 오픈. 마케팅 캠페인 시작 및 사용자 확보.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Desktop layout -->
+                            <div class="hidden lg:flex items-center w-full">
+                                <div class="flex-1 pr-8 text-right">
+                                    <div class="inline-flex items-center rounded-full border px-3 py-1 text-sm font-semibold bg-emerald-100 text-emerald-800 border-emerald-200">
+                                        2026.06.01
+                                    </div>
+                                </div>
+                                <div class="absolute left-1/2 transform -translate-x-1/2">
+                                    <div class="flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-r from-emerald-500 to-green-600 text-white font-semibold shadow-lg shadow-glow">
+                                        🚀
+                                    </div>
+                                </div>
+                                <div class="flex-1 pl-8">
+                                    <div class="rounded-lg border bg-card text-card-foreground shadow-sm p-6 glass-card hover:shadow-lg transition-all duration-300 border-green-200 bg-green-50">
+                                        <h3 class="font-semibold text-lg mb-2 text-green-800">정식 서비스 런칭</h3>
+                                        <p class="text-green-700">완성된 법률 AI 서비스 정식 오픈. 마케팅 캠페인 시작 및 사용자 확보.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Floating Write Button -->
+    <div class="fixed bottom-6 right-6 z-50">
+        <button class="group relative inline-flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 animate-bounce-gentle" onclick="openWriteModal()">
+            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+            </svg>
+            <div class="absolute -top-2 -right-2 h-4 w-4 rounded-full bg-red-500 flex items-center justify-center">
+                <span class="text-xs text-white font-bold">!</span>
+            </div>
+            <div class="absolute right-16 top-1/2 transform -translate-y-1/2 bg-gray-900 text-white px-3 py-1 rounded-lg text-sm opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                새 글 작성하기
+            </div>
+        </button>
+    </div>
+
+    <!-- Write Modal -->
+    <div id="writeModal" class="fixed inset-0 z-50 hidden">
+        <div class="fixed inset-0 modal-backdrop" onclick="closeWriteModal()"></div>
+        <div class="fixed inset-0 overflow-y-auto">
+            <div class="flex min-h-full items-center justify-center p-4 text-center">
+                <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all w-full max-w-2xl animate-slide-in">
+                    <div class="bg-white px-6 py-4">
+                        <div class="flex items-center justify-between border-b pb-4 mb-6">
+                            <div class="flex items-center space-x-3">
+                                <div class="text-2xl">📝</div>
+                                <h2 class="text-2xl font-bold gradient-text">새 글 작성</h2>
+                            </div>
+                            <button class="rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none" onclick="closeWriteModal()">
+                                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        
+                        <form id="writeForm" onsubmit="submitPost(event)" class="space-y-6">
+                            <div class="space-y-2">
+                                <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" for="category">
+                                    카테고리 <span class="text-red-500">*</span>
+                                </label>
+                                <select id="category" class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" required>
+                                    <option value="">카테고리를 선택해주세요</option>
+                                    <option value="development">🚀 개발 일지</option>
+                                    <option value="ai_study">🧠 AI 스터디</option>
+                                    <option value="notice">📢 공지사항</option>
+                                    <option value="community">💬 커뮤니티</option>
+                                </select>
+                            </div>
+
+                            <div class="space-y-2">
+                                <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" for="title">
+                                    제목 <span class="text-red-500">*</span>
+                                </label>
+                                <input id="title" class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" placeholder="글 제목을 입력해주세요" maxlength="255" required />
+                            </div>
+
+                            <div class="space-y-2">
+                                <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" for="content">
+                                    내용 <span class="text-red-500">*</span>
+                                </label>
+                                <textarea id="content" class="flex min-h-[120px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 resize-none" placeholder="내용을 입력해주세요...
+
+• 개발 진행 상황
+• 학습한 내용  
+• 팀 논의 사항
+• 기타 공유하고 싶은 내용" rows="8" required></textarea>
+                                <div class="flex justify-between items-center text-xs text-muted-foreground">
+                                    <span>Markdown 문법을 지원합니다</span>
+                                    <span id="charCount">0</span>
+                                </div>
+                            </div>
+
+                            <div class="space-y-2">
+                                <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" for="attachment">
+                                    첨부파일
+                                </label>
+                                <input id="attachment" type="file" class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" accept="image/*,.pdf,.doc,.docx,.txt" />
+                                <p class="text-xs text-muted-foreground">이미지, PDF, Word 문서, 텍스트 파일을 첨부할 수 있습니다.</p>
+                            </div>
+
+                            <div class="flex justify-end space-x-3 pt-4">
+                                <button type="button" class="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2" onclick="closeWriteModal()">
+                                    취소
+                                </button>
+                                <button type="submit" class="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2">
+                                    <span class="mr-2">📝</span>
+                                    글 발행하기
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,158 @@
+<div class="relative">
+  <!-- Timeline Line - Desktop only -->
+  <div class="absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-indigo-500 to-purple-600 transform -translate-x-px hidden lg:block"></div>
+  
+  <!-- Mobile Timeline Line -->
+  <div class="absolute left-6 top-0 bottom-0 w-0.5 bg-gradient-to-b from-indigo-500 to-purple-600 lg:hidden"></div>
+  
+  <div class="space-y-12">
+    <!-- Starting Point -->
+    <div class="relative flex items-center">
+      <!-- Mobile layout -->
+      <div class="lg:hidden flex items-start space-x-4">
+        <div class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-semibold shadow-lg">
+          🎯
+        </div>
+        <div class="flex-1">
+          <div class="rounded-lg border bg-card text-card-foreground shadow-sm p-4 glass-card">
+            <div class="inline-flex items-center rounded-full border px-3 py-1 text-sm font-semibold bg-green-100 text-green-800 border-green-200 mb-2">
+              2025.06.18
+            </div>
+            <h3 class="font-semibold text-lg mb-2">AI Study 시작</h3>
+            <p class="text-muted-foreground text-sm">4명의 변호사가 AI 기술 학습을 시작. 법률 서비스에 AI를 접목하기 위한 기초 연구 및 스터디 진행.</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Desktop layout -->
+      <div class="hidden lg:flex items-center w-full">
+        <div class="flex-1 pr-8 text-right">
+          <div class="rounded-lg border bg-card text-card-foreground shadow-sm p-6 glass-card hover:shadow-lg transition-all duration-300">
+            <h3 class="font-semibold text-lg mb-2">AI Study 시작</h3>
+            <p class="text-muted-foreground">4명의 변호사가 AI 기술 학습을 시작. 법률 서비스에 AI를 접목하기 위한 기초 연구 및 스터디 진행.</p>
+          </div>
+        </div>
+        <div class="absolute left-1/2 transform -translate-x-1/2">
+          <div class="flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-semibold shadow-lg timeline-dot">
+            🎯
+          </div>
+        </div>
+        <div class="flex-1 pl-8">
+          <div class="inline-flex items-center rounded-full border px-3 py-1 text-sm font-semibold bg-green-100 text-green-800 border-green-200">
+            2025.06.18
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <% milestones.each_with_index do |milestone, index| %>
+      <% is_left = index.even? %>
+      <% 
+        color_classes = case milestone.milestone_status
+        when 'completed'
+          { bg: 'from-green-500 to-emerald-600', badge: 'bg-green-100 text-green-800 border-green-200' }
+        when 'in_progress'
+          { bg: 'from-blue-500 to-indigo-600', badge: 'bg-blue-100 text-blue-800 border-blue-200' }
+        else
+          { bg: 'from-gray-400 to-gray-600', badge: 'bg-gray-100 text-gray-800 border-gray-200' }
+        end
+      %>
+      
+      <div class="relative flex items-center">
+        <!-- Mobile layout -->
+        <div class="lg:hidden flex items-start space-x-4">
+          <div class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-r <%= color_classes[:bg] %> text-white font-semibold shadow-lg">
+            <%= index + 1 %>
+          </div>
+          <div class="flex-1">
+            <%= link_to milestone, class: "block rounded-lg border bg-card text-card-foreground shadow-sm p-4 glass-card hover:shadow-lg transition-all duration-300" do %>
+              <div class="inline-flex items-center rounded-full border px-3 py-1 text-sm font-semibold <%= color_classes[:badge] %> mb-2">
+                <%= milestone.milestone_date&.strftime('%Y.%m.%d') %>
+              </div>
+              <h3 class="font-semibold text-lg mb-2"><%= milestone.title %></h3>
+              <p class="text-muted-foreground text-sm line-clamp-2"><%= truncate(milestone.content, length: 100) %></p>
+            <% end %>
+          </div>
+        </div>
+        
+        <!-- Desktop layout -->
+        <div class="hidden lg:flex items-center w-full">
+          <% if is_left %>
+            <div class="flex-1 pr-8 text-right">
+              <%= link_to milestone, class: "block rounded-lg border bg-card text-card-foreground shadow-sm p-6 glass-card hover:shadow-lg transition-all duration-300" do %>
+                <h3 class="font-semibold text-lg mb-2"><%= milestone.title %></h3>
+                <p class="text-muted-foreground line-clamp-2"><%= truncate(milestone.content, length: 150) %></p>
+              <% end %>
+            </div>
+            <div class="absolute left-1/2 transform -translate-x-1/2">
+              <div class="flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-r <%= color_classes[:bg] %> text-white font-semibold shadow-lg">
+                <%= index + 1 %>
+              </div>
+            </div>
+            <div class="flex-1 pl-8">
+              <div class="inline-flex items-center rounded-full border px-3 py-1 text-sm font-semibold <%= color_classes[:badge] %>">
+                <%= milestone.milestone_date&.strftime('%Y.%m.%d') %>
+              </div>
+            </div>
+          <% else %>
+            <div class="flex-1 pr-8 text-right">
+              <div class="inline-flex items-center rounded-full border px-3 py-1 text-sm font-semibold <%= color_classes[:badge] %>">
+                <%= milestone.milestone_date&.strftime('%Y.%m.%d') %>
+              </div>
+            </div>
+            <div class="absolute left-1/2 transform -translate-x-1/2">
+              <div class="flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-r <%= color_classes[:bg] %> text-white font-semibold shadow-lg">
+                <%= index + 1 %>
+              </div>
+            </div>
+            <div class="flex-1 pl-8">
+              <%= link_to milestone, class: "block rounded-lg border bg-card text-card-foreground shadow-sm p-6 glass-card hover:shadow-lg transition-all duration-300" do %>
+                <h3 class="font-semibold text-lg mb-2"><%= milestone.title %></h3>
+                <p class="text-muted-foreground line-clamp-2"><%= truncate(milestone.content, length: 150) %></p>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+
+    <!-- Final Goal -->
+    <div class="relative flex items-center">
+      <!-- Mobile layout -->
+      <div class="lg:hidden flex items-start space-x-4">
+        <div class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-r from-emerald-500 to-green-600 text-white font-semibold shadow-lg shadow-glow">
+          🚀
+        </div>
+        <div class="flex-1">
+          <div class="rounded-lg border bg-card text-card-foreground shadow-sm p-4 glass-card border-green-200 bg-green-50">
+            <div class="inline-flex items-center rounded-full border px-3 py-1 text-sm font-semibold bg-emerald-100 text-emerald-800 border-emerald-200 mb-2">
+              2026.06.01
+            </div>
+            <h3 class="font-semibold text-lg mb-2 text-green-800">정식 서비스 런칭</h3>
+            <p class="text-green-700 text-sm">완성된 법률 AI 서비스 정식 오픈. 마케팅 캠페인 시작 및 사용자 확보.</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Desktop layout -->
+      <div class="hidden lg:flex items-center w-full">
+        <div class="flex-1 pr-8 text-right">
+          <div class="inline-flex items-center rounded-full border px-3 py-1 text-sm font-semibold bg-emerald-100 text-emerald-800 border-emerald-200">
+            2026.06.01
+          </div>
+        </div>
+        <div class="absolute left-1/2 transform -translate-x-1/2">
+          <div class="flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-r from-emerald-500 to-green-600 text-white font-semibold shadow-lg shadow-glow">
+            🚀
+          </div>
+        </div>
+        <div class="flex-1 pl-8">
+          <div class="rounded-lg border bg-card text-card-foreground shadow-sm p-6 glass-card hover:shadow-lg transition-all duration-300 border-green-200 bg-green-50">
+            <h3 class="font-semibold text-lg mb-2 text-green-800">정식 서비스 런칭</h3>
+            <p class="text-green-700">완성된 법률 AI 서비스 정식 오픈. 마케팅 캠페인 시작 및 사용자 확보.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

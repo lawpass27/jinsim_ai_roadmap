@@ -22,27 +22,78 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="bg-gray-50">
-    <nav class="bg-white shadow-sm border-b border-gray-200">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-16">
-          <div class="flex items-center">
-            <%= link_to "진심 AI 로드맵", root_path, class: "text-xl font-bold text-blue-600" %>
-          </div>
+  <body class="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50" data-controller="modal mobile-menu">
+    <!-- Header -->
+    <header class="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <div class="container mx-auto px-4">
+        <div class="flex h-16 items-center justify-between">
           <div class="flex items-center space-x-4">
-            <% if user_signed_in? %>
-              <span class="text-gray-700"><%= current_user.display_name %></span>
-              <% if current_user.admin? %>
-                <%= link_to "관리자", admin_users_path, class: "text-gray-600 hover:text-gray-900" %>
-              <% end %>
-              <%= button_to "로그아웃", destroy_user_session_path, method: :delete, class: "text-gray-600 hover:text-gray-900" %>
-            <% else %>
-              <%= link_to "로그인", new_user_session_path, class: "bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700" %>
+            <%= link_to root_path, class: "text-2xl font-bold gradient-text" do %>
+              법무법인 진심
             <% end %>
+            <div class="hidden md:flex items-center space-x-1 text-sm text-muted-foreground">
+              <span class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80">
+                개발 진행중
+              </span>
+            </div>
+          </div>
+          <nav class="hidden md:flex items-center space-x-6 text-sm font-medium">
+            <%= link_to "홈", root_path, class: "transition-colors hover:text-foreground/80 text-foreground/60" %>
+            <%= link_to "개발 여정", milestones_posts_path, class: "transition-colors hover:text-foreground/80 text-foreground/60" %>
+            <%= link_to "AI 스터디", study_posts_path, class: "transition-colors hover:text-foreground/80 text-foreground/60" %>
+            <%= link_to "팀 소개", "#team", class: "transition-colors hover:text-foreground/80 text-foreground/60" %>
+            <%= link_to "게시판", "#board", class: "transition-colors hover:text-foreground/80 text-foreground/60" %>
+            
+            <% if user_signed_in? %>
+              <div class="flex items-center space-x-4">
+                <span class="text-sm text-muted-foreground"><%= current_user.display_name %></span>
+                <% if current_user.admin? %>
+                  <%= link_to "관리자", admin_users_path, class: "text-sm transition-colors hover:text-foreground/80 text-foreground/60" %>
+                <% end %>
+                <%= button_to "로그아웃", destroy_user_session_path, method: :delete, class: "inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 px-4" %>
+              </div>
+            <% else %>
+              <%= link_to new_user_session_path, class: "inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-9 px-4 py-2" do %>
+                로그인
+              <% end %>
+            <% end %>
+            
+            <% if user_signed_in? %>
+              <button data-action="click->modal#open" class="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-9 px-4 py-2">
+                ✍️ 글쓰기
+              </button>
+            <% end %>
+          </nav>
+          
+          <!-- Mobile menu button -->
+          <button class="md:hidden inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 w-9" data-action="click->mobile-menu#toggle">
+            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+          </button>
+        </div>
+        
+        <!-- Mobile menu -->
+        <div id="mobileMenu" class="md:hidden hidden border-t bg-background" data-mobile-menu-target="menu">
+          <div class="container mx-auto px-4 py-4">
+            <nav class="flex flex-col space-y-4">
+              <%= link_to "홈", root_path, class: "transition-colors hover:text-foreground/80 text-foreground/60 py-2" %>
+              <%= link_to "개발 여정", milestones_posts_path, class: "transition-colors hover:text-foreground/80 text-foreground/60 py-2" %>
+              <%= link_to "AI 스터디", study_posts_path, class: "transition-colors hover:text-foreground/80 text-foreground/60 py-2" %>
+              <%= link_to "팀 소개", "#team", class: "transition-colors hover:text-foreground/80 text-foreground/60 py-2" %>
+              <%= link_to "게시판", "#board", class: "transition-colors hover:text-foreground/80 text-foreground/60 py-2" %>
+              <% if user_signed_in? %>
+                <button data-action="click->modal#open" class="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2 w-full">
+                  ✍️ 새 글 작성
+                </button>
+              <% else %>
+                <%= link_to "로그인", new_user_session_path, class: "inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2 w-full" %>
+              <% end %>
+            </nav>
           </div>
         </div>
       </div>
-    </nav>
+    </header>
 
     <% if notice.present? %>
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
@@ -60,8 +111,31 @@
       </div>
     <% end %>
 
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
       <%= yield %>
     </main>
+    
+    <!-- Floating Write Button -->
+    <% if user_signed_in? %>
+      <div class="fixed bottom-6 right-6 z-50">
+        <button data-action="click->modal#open" class="group relative inline-flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 animate-bounce-gentle">
+          <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+          </svg>
+          <div class="absolute -top-2 -right-2 h-4 w-4 rounded-full bg-red-500 flex items-center justify-center">
+            <span class="text-xs text-white font-bold">!</span>
+          </div>
+          <div class="absolute right-16 top-1/2 transform -translate-y-1/2 bg-gray-900 text-white px-3 py-1 rounded-lg text-sm opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+            새 글 작성하기
+          </div>
+        </button>
+      </div>
+    <% end %>
+    
+    <!-- Include Write Modal -->
+    <% if user_signed_in? %>
+      <%= render 'shared/write_modal' %>
+    <% end %>
   </body>
 </html>
