@@ -1,17 +1,32 @@
 <div class="space-y-8" data-controller="dashboard">
-  <!-- Hero Section -->
-  <section id="home" class="text-center py-16 animate-fade-in">
-    <div class="space-y-6">
-      <h1 class="text-4xl md:text-6xl font-bold tracking-tight">
-        <span class="gradient-text">법률 서비스의</span><br>
-        <span class="text-foreground">새로운 패러다임</span>
+  <!-- Hero Section with Sky Background -->
+  <section id="home" class="relative text-center py-24 animate-fade-in overflow-hidden -mx-8 -mt-8">
+    <!-- Sky/Ocean Gradient Background -->
+    <div class="absolute inset-0 bg-gradient-to-b from-sky-200 via-sky-100 to-blue-50"></div>
+    
+    <!-- Subtle Clouds Effect -->
+    <div class="absolute inset-0">
+      <div class="absolute top-10 left-10 w-32 h-16 bg-white/40 rounded-full blur-3xl"></div>
+      <div class="absolute top-20 right-20 w-48 h-20 bg-white/30 rounded-full blur-3xl"></div>
+      <div class="absolute top-32 left-1/3 w-40 h-16 bg-white/35 rounded-full blur-3xl"></div>
+      <div class="absolute top-16 right-1/3 w-36 h-14 bg-white/40 rounded-full blur-3xl"></div>
+    </div>
+    
+    <!-- Semi-transparent overlay for better text contrast -->
+    <div class="absolute inset-0 bg-white/20"></div>
+    
+    <!-- Content -->
+    <div class="relative z-10 space-y-6 px-8">
+      <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight leading-relaxed md:leading-relaxed">
+        <span class="text-gray-800 drop-shadow-sm">법률 서비스의</span><br>
+        <span class="text-gray-900 drop-shadow-sm">새로운 패러다임</span>
       </h1>
-      <p class="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+      <p class="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed font-medium">
         법무법인 진심의 4명의 변호사가 함께 만들어가는<br>
         혁신적인 인터넷 서비스 개발 여정을 기록합니다.
       </p>
       <div class="flex justify-center">
-        <div class="inline-flex items-center rounded-lg bg-muted px-3 py-1 text-sm font-medium">
+        <div class="inline-flex items-center rounded-lg bg-white/95 backdrop-blur px-4 py-2 text-sm font-semibold text-gray-800 shadow-lg border border-white/50">
           🚀 2025년 6월 18일 프로젝트 시작
         </div>
       </div>
@@ -19,25 +34,26 @@
   </section>
 
   <!-- Dashboard Grid -->
-  <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+  <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
     <!-- Progress Card -->
-    <div class="rounded-lg border bg-card text-card-foreground shadow-sm glass-card hover:shadow-lg transition-all duration-300 floating-animation">
-      <div class="p-6">
-        <div class="flex items-center space-x-2 mb-4">
-          <div class="text-2xl">🚀</div>
-          <h3 class="font-semibold leading-none tracking-tight">프로젝트 진행률</h3>
+    <div class="rounded-xl bg-white border border-black/20 shadow-lg hover:shadow-xl transition-all duration-300 floating-animation">
+      <div class="p-8">
+        <div class="flex items-center space-x-3 mb-4">
+          <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-indigo-50 to-purple-50 flex items-center justify-center">
+            <span class="text-2xl">🚀</span>
+          </div>
+          <h3 class="font-semibold text-gray-800">프로젝트 진행률</h3>
         </div>
-        <p class="text-sm text-muted-foreground mb-4">전체 개발 진행 상황</p>
-        <div class="w-full bg-secondary rounded-full h-2 mb-2">
-          <div class="bg-gradient-to-r from-indigo-500 to-purple-600 h-2 rounded-full transition-all duration-500" style="width: 25%"></div>
+        <p class="text-sm text-gray-600 mb-4">전체 개발 진행 상황</p>
+        <div class="py-8 text-center">
+          <p class="text-gray-400 text-sm">진행률 집계 중...</p>
         </div>
-        <p class="text-sm font-medium mb-4"><strong class="text-lg">25%</strong> 완료 (기획 단계)</p>
         <% if user_signed_in? %>
-          <%= link_to milestones_posts_path, class: "inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-9 px-3" do %>
-            자세히 보기
+          <%= link_to milestones_posts_path, class: "text-sm text-gray-600 hover:text-gray-900 font-medium transition-colors" do %>
+            자세히 보기 →
           <% end %>
         <% else %>
-          <button data-action="click->login-modal#open" class="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-9 px-3">
+          <button data-action="click->login-modal#open" class="text-sm text-gray-600 hover:text-gray-900 font-medium transition-colors">
             로그인
           </button>
         <% end %>
@@ -45,23 +61,31 @@
     </div>
 
     <!-- AI Study Card -->
-    <div class="rounded-lg border bg-card text-card-foreground shadow-sm glass-card hover:shadow-lg transition-all duration-300 floating-animation" style="animation-delay: 0.2s">
-      <div class="p-6">
-        <div class="flex items-center space-x-2 mb-4">
-          <div class="text-2xl">🧠</div>
-          <h3 class="font-semibold leading-none tracking-tight">AI 스터디</h3>
+    <div class="rounded-xl bg-white border border-black/20 shadow-lg hover:shadow-xl transition-all duration-300 floating-animation" style="animation-delay: 0.2s">
+      <div class="p-8">
+        <div class="flex items-center space-x-3 mb-4">
+          <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-green-50 to-emerald-50 flex items-center justify-center">
+            <span class="text-2xl">🧠</span>
+          </div>
+          <h3 class="font-semibold text-gray-800">AI 스터디</h3>
         </div>
-        <p class="text-sm text-muted-foreground mb-4">변호사들의 AI 학습 현황</p>
-        <div class="w-full bg-secondary rounded-full h-2 mb-2">
-          <div class="bg-gradient-to-r from-green-500 to-emerald-600 h-2 rounded-full transition-all duration-500" style="width: 60%"></div>
+        <p class="text-sm text-gray-600 mb-4">변호사들의 AI 학습 현황</p>
+        <div class="space-y-2 mb-4">
+          <div class="flex justify-between items-center">
+            <span class="text-sm text-gray-700">일일 스터디</span>
+            <span class="text-sm font-medium text-green-600">매일 오전 9시</span>
+          </div>
+          <div class="flex justify-between items-center">
+            <span class="text-sm text-gray-700">참여율</span>
+            <span class="text-sm font-medium">100%</span>
+          </div>
         </div>
-        <p class="text-sm font-medium mb-4"><strong class="text-lg">8회</strong> 스터디 완료</p>
         <% if user_signed_in? %>
-          <%= link_to study_posts_path, class: "inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-9 px-3" do %>
-            스터디 노트
+          <%= link_to study_posts_path, class: "text-sm text-gray-600 hover:text-gray-900 font-medium transition-colors" do %>
+            스터디 노트 →
           <% end %>
         <% else %>
-          <button data-action="click->login-modal#open" class="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-9 px-3">
+          <button data-action="click->login-modal#open" class="text-sm text-gray-600 hover:text-gray-900 font-medium transition-colors">
             로그인
           </button>
         <% end %>
@@ -69,79 +93,81 @@
     </div>
 
     <!-- Recent Posts Card -->
-    <div class="rounded-lg border bg-card text-card-foreground shadow-sm glass-card hover:shadow-lg transition-all duration-300 floating-animation" style="animation-delay: 0.4s">
-      <div class="p-6">
-        <div class="flex items-center space-x-2 mb-4">
-          <div class="text-2xl">📝</div>
-          <h3 class="font-semibold leading-none tracking-tight">최근 게시물</h3>
+    <div class="rounded-xl bg-white border border-black/20 shadow-lg hover:shadow-xl transition-all duration-300 floating-animation" style="animation-delay: 0.4s">
+      <div class="p-8">
+        <div class="flex items-center space-x-3 mb-4">
+          <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-blue-50 to-indigo-50 flex items-center justify-center">
+            <span class="text-2xl">📝</span>
+          </div>
+          <h3 class="font-semibold text-gray-800">최근 게시물</h3>
         </div>
-        <p class="text-sm text-muted-foreground mb-4">팀 활동 및 개발 소식</p>
+        <p class="text-sm text-gray-600 mb-4">팀 활동 및 개발 소식</p>
         <div class="space-y-2 mb-4">
           <% recent_posts = (@recent_study_posts + @recent_planning_posts + @recent_development_posts).sort_by(&:created_at).reverse.first(3) %>
           <% if recent_posts.any? %>
             <% recent_posts.each do |post| %>
               <div class="flex items-center space-x-2 text-sm">
-                <div class="w-2 h-2 bg-<%= ['blue', 'green', 'purple'][rand(3)] %>-500 rounded-full"></div>
-                <%= link_to post, class: "hover:text-primary transition-colors line-clamp-1" do %>
+                <div class="w-1.5 h-1.5 bg-gray-400 rounded-full"></div>
+                <%= link_to post, class: "text-gray-700 hover:text-gray-900 transition-colors line-clamp-1" do %>
                   <%= post.title %>
                 <% end %>
               </div>
             <% end %>
           <% else %>
-            <p class="text-sm text-muted-foreground">아직 게시물이 없습니다.</p>
+            <p class="text-sm text-gray-500">아직 게시물이 없습니다.</p>
           <% end %>
         </div>
         <div class="flex space-x-2">
           <% if user_signed_in? %>
-            <%= link_to "#board", class: "inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 px-3" do %>
+            <%= link_to "#board", class: "text-sm text-gray-600 hover:text-gray-900 font-medium transition-colors" do %>
               게시판 보기
             <% end %>
-            <button data-action="click->modal#open" class="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-green-600 text-white hover:bg-green-700 h-9 px-3">
+            <span class="text-gray-300">•</span>
+            <button data-action="click->modal#open" class="text-sm text-green-600 hover:text-green-700 font-medium transition-colors">
               ✍️ 글쓰기
             </button>
           <% else %>
-            <%= link_to new_user_session_path, class: "inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-9 px-3" do %>
+            <button data-action="click->login-modal#open" class="text-sm text-gray-600 hover:text-gray-900 font-medium transition-colors">
               로그인
-            <% end %>
+            </button>
           <% end %>
         </div>
       </div>
     </div>
 
     <!-- Next Goals Card -->
-    <div class="rounded-lg border bg-card text-card-foreground shadow-sm glass-card hover:shadow-lg transition-all duration-300 floating-animation" style="animation-delay: 0.6s">
-      <div class="p-6">
-        <div class="flex items-center space-x-2 mb-4">
-          <div class="text-2xl">🎯</div>
-          <h3 class="font-semibold leading-none tracking-tight">다음 목표</h3>
+    <div class="rounded-xl bg-white border border-black/20 shadow-lg hover:shadow-xl transition-all duration-300 floating-animation" style="animation-delay: 0.6s">
+      <div class="p-8">
+        <div class="flex items-center space-x-3 mb-4">
+          <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-orange-50 to-red-50 flex items-center justify-center">
+            <span class="text-2xl">🎯</span>
+          </div>
+          <h3 class="font-semibold text-gray-800">다음 목표</h3>
         </div>
-        <p class="text-sm text-muted-foreground mb-4">앞으로의 계획</p>
-        <div class="space-y-2 mb-4">
-          <div class="flex items-center space-x-2 text-sm">
-            <div class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-blue-100 text-blue-800">
-              진행중
-            </div>
-            <span>MVP 프로토타입 완성</span>
+        <p class="text-sm text-gray-600 mb-4">이번 달 주요 목표</p>
+        <div class="space-y-3 mb-4">
+          <div class="flex items-center space-x-2">
+            <input type="checkbox" class="rounded border-gray-300" disabled>
+            <span class="text-sm text-gray-700">시스템 아키텍처 설계</span>
           </div>
-          <div class="flex items-center space-x-2 text-sm">
-            <div class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-yellow-100 text-yellow-800">
-              대기중
-            </div>
-            <span>베타 테스터 모집</span>
+          <div class="flex items-center space-x-2">
+            <input type="checkbox" class="rounded border-gray-300" disabled>
+            <span class="text-sm text-gray-700">데이터베이스 구조 확정</span>
           </div>
-          <div class="flex items-center space-x-2 text-sm">
-            <div class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-gray-100 text-gray-800">
-              계획
-            </div>
-            <span>법률 자문 AI 모델 구축</span>
+          <div class="flex items-center space-x-2">
+            <input type="checkbox" class="rounded border-gray-300" disabled>
+            <span class="text-sm text-gray-700">UI/UX 프로토타입</span>
           </div>
+        </div>
+        <div class="text-xs text-gray-500">
+          마감일: 2025년 1월 31일
         </div>
         <% if user_signed_in? %>
-          <%= link_to milestones_posts_path, class: "inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-9 px-3" do %>
-            로드맵 보기
+          <%= link_to milestones_posts_path, class: "text-sm text-gray-600 hover:text-gray-900 font-medium transition-colors" do %>
+            로드맵 보기 →
           <% end %>
         <% else %>
-          <button data-action="click->login-modal#open" class="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-9 px-3">
+          <button data-action="click->login-modal#open" class="text-sm text-gray-600 hover:text-gray-900 font-medium transition-colors">
             로그인
           </button>
         <% end %>
@@ -150,8 +176,8 @@
   </section>
 
   <!-- Team Section -->
-  <section id="team" class="rounded-lg border bg-card text-card-foreground shadow-sm mb-8">
-    <div class="p-6">
+  <section id="team" class="rounded-xl bg-white border border-black/20 shadow-lg mb-16">
+    <div class="p-8">
       <h2 class="text-3xl font-bold tracking-tight mb-6">팀 소개</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <div class="text-center group hover:scale-105 transition-transform duration-300">
@@ -159,7 +185,7 @@
             이
           </div>
           <h3 class="font-semibold text-lg">이정민 변호사</h3>
-          <div class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-primary text-primary-foreground my-2">
+          <div class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-blue-100 text-blue-800 my-2">
             프로젝트 리더
           </div>
           <p class="text-sm text-muted-foreground">15년 경력의 베테랑 변호사로, 프로젝트 전체 방향성과 법률 서비스 기획을 담당합니다.</p>
@@ -202,8 +228,8 @@
   </section>
 
   <!-- Board Section -->
-  <section id="board" class="rounded-lg border bg-card text-card-foreground shadow-sm mb-8">
-    <div class="p-6">
+  <section id="board" class="rounded-xl bg-white border border-black/20 shadow-lg mb-16">
+    <div class="p-8">
       <div class="flex items-center justify-between mb-6">
         <h2 class="text-3xl font-bold tracking-tight">게시판</h2>
         <% if user_signed_in? %>
@@ -215,60 +241,26 @@
       </div>
       
       <div class="flex space-x-1 border-b mb-6 overflow-x-auto">
-        <button data-action="click->dashboard#showBoard" data-board="development" class="inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border-b-2 border-primary text-foreground board-tab active flex-shrink-0">
-          서비스개발
-        </button>
-        <button data-action="click->dashboard#showBoard" data-board="study" class="inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border-b-2 border-transparent text-muted-foreground hover:text-foreground board-tab flex-shrink-0">
+        <button data-action="click->dashboard#showBoard" data-board="study" class="inline-flex items-center justify-center whitespace-nowrap rounded-sm px-4 py-2 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border-b-2 border-primary text-foreground board-tab active flex-shrink-0">
+          <span class="mr-2">🧠</span>
           AI 스터디
         </button>
-        <button data-action="click->dashboard#showBoard" data-board="planning" class="inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border-b-2 border-transparent text-muted-foreground hover:text-foreground board-tab flex-shrink-0">
+        <button data-action="click->dashboard#showBoard" data-board="planning" class="inline-flex items-center justify-center whitespace-nowrap rounded-sm px-4 py-2 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border-b-2 border-transparent text-muted-foreground hover:text-foreground board-tab flex-shrink-0">
+          <span class="mr-2">💡</span>
           서비스기획
         </button>
-        <button data-action="click->dashboard#showBoard" data-board="milestone" class="inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border-b-2 border-transparent text-muted-foreground hover:text-foreground board-tab flex-shrink-0">
+        <button data-action="click->dashboard#showBoard" data-board="development" class="inline-flex items-center justify-center whitespace-nowrap rounded-sm px-4 py-2 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border-b-2 border-transparent text-muted-foreground hover:text-foreground board-tab flex-shrink-0">
+          <span class="mr-2">🚀</span>
+          서비스개발
+        </button>
+        <button data-action="click->dashboard#showBoard" data-board="milestone" class="inline-flex items-center justify-center whitespace-nowrap rounded-sm px-4 py-2 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border-b-2 border-transparent text-muted-foreground hover:text-foreground board-tab flex-shrink-0">
+          <span class="mr-2">🎯</span>
           마일스톤
         </button>
       </div>
 
-      <!-- Development Board -->
-      <div data-dashboard-target="developmentBoard" class="board-content">
-        <div class="space-y-4">
-          <% if @recent_development_posts.any? %>
-            <% @recent_development_posts.each do |post| %>
-              <%= link_to post, class: "flex items-center justify-between p-4 border rounded-lg hover:bg-accent/50 transition-colors cursor-pointer" do %>
-                <div class="space-y-2">
-                  <h4 class="font-medium"><%= post.title %></h4>
-                  <div class="flex items-center space-x-4 text-sm text-muted-foreground">
-                    <span><%= post.author_name %></span>
-                    <span><%= post.created_at.strftime('%Y.%m.%d') %></span>
-                  </div>
-                </div>
-                <div class="flex items-center space-x-4 text-sm text-muted-foreground">
-                  <span class="flex items-center space-x-1">
-                    <span>💬</span>
-                    <span>0</span>
-                  </span>
-                  <span class="flex items-center space-x-1">
-                    <span>👁</span>
-                    <span><%= rand(10..100) %></span>
-                  </span>
-                </div>
-              <% end %>
-            <% end %>
-            <% if user_signed_in? %>
-              <%= link_to "전체 보기", development_posts_path, class: "block text-center text-sm text-primary hover:text-primary/80 mt-4" %>
-            <% else %>
-              <button data-action="click->login-modal#open" class="block w-full text-center text-sm text-muted-foreground hover:text-foreground mt-4">
-                로그인하여 전체 보기
-              </button>
-            <% end %>
-          <% else %>
-            <p class="text-center text-muted-foreground py-8">아직 개발 관련 게시물이 없습니다.</p>
-          <% end %>
-        </div>
-      </div>
-
       <!-- Study Board -->
-      <div data-dashboard-target="studyBoard" class="board-content hidden">
+      <div data-dashboard-target="studyBoard" class="board-content">
         <div class="space-y-4">
           <% if @recent_study_posts.any? %>
             <% @recent_study_posts.each do |post| %>
@@ -283,11 +275,7 @@
                 <div class="flex items-center space-x-4 text-sm text-muted-foreground">
                   <span class="flex items-center space-x-1">
                     <span>💬</span>
-                    <span>0</span>
-                  </span>
-                  <span class="flex items-center space-x-1">
-                    <span>👁</span>
-                    <span><%= rand(10..100) %></span>
+                    <span><%= post.comments.count %></span>
                   </span>
                 </div>
               <% end %>
@@ -321,11 +309,7 @@
                 <div class="flex items-center space-x-4 text-sm text-muted-foreground">
                   <span class="flex items-center space-x-1">
                     <span>💬</span>
-                    <span>0</span>
-                  </span>
-                  <span class="flex items-center space-x-1">
-                    <span>👁</span>
-                    <span><%= rand(10..100) %></span>
+                    <span><%= post.comments.count %></span>
                   </span>
                 </div>
               <% end %>
@@ -339,6 +323,40 @@
             <% end %>
           <% else %>
             <p class="text-center text-muted-foreground py-8">서비스 기획 아이디어를 기록해주세요!</p>
+          <% end %>
+        </div>
+      </div>
+
+      <!-- Development Board -->
+      <div data-dashboard-target="developmentBoard" class="board-content hidden">
+        <div class="space-y-4">
+          <% if @recent_development_posts.any? %>
+            <% @recent_development_posts.each do |post| %>
+              <%= link_to post, class: "flex items-center justify-between p-4 border rounded-lg hover:bg-accent/50 transition-colors cursor-pointer" do %>
+                <div class="space-y-2">
+                  <h4 class="font-medium"><%= post.title %></h4>
+                  <div class="flex items-center space-x-4 text-sm text-muted-foreground">
+                    <span><%= post.author_name %></span>
+                    <span><%= post.created_at.strftime('%Y.%m.%d') %></span>
+                  </div>
+                </div>
+                <div class="flex items-center space-x-4 text-sm text-muted-foreground">
+                  <span class="flex items-center space-x-1">
+                    <span>💬</span>
+                    <span><%= post.comments.count %></span>
+                  </span>
+                </div>
+              <% end %>
+            <% end %>
+            <% if user_signed_in? %>
+              <%= link_to "전체 보기", development_posts_path, class: "block text-center text-sm text-primary hover:text-primary/80 mt-4" %>
+            <% else %>
+              <button data-action="click->login-modal#open" class="block w-full text-center text-sm text-muted-foreground hover:text-foreground mt-4">
+                로그인하여 전체 보기
+              </button>
+            <% end %>
+          <% else %>
+            <p class="text-center text-muted-foreground py-8">개발 진행 상황을 기록해주세요!</p>
           <% end %>
         </div>
       </div>
@@ -384,8 +402,8 @@
   </section>
 
   <!-- Timeline Section -->
-  <section id="milestones" class="rounded-lg border bg-card text-card-foreground shadow-sm mb-8">
-    <div class="p-6">
+  <section id="milestones" class="rounded-xl bg-white border border-black/20 shadow-lg mb-16">
+    <div class="p-8">
       <h2 class="text-3xl font-bold tracking-tight mb-8">개발 마일스톤</h2>
       <%= render 'shared/vertical_timeline', milestones: @milestones %>
     </div>

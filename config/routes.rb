@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   root "dashboard#index"
   
   resources :posts do
+    resources :comments, only: [:create, :destroy]
     collection do
       get :study
       get :planning

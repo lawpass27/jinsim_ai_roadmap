@@ -87,6 +87,48 @@
         </div>
       <% end %>
 
+      <div class="mt-6">
+        <%= form.label :files, "파일 첨부", class: "block text-sm font-medium text-gray-700 mb-1" %>
+        <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 hover:border-gray-400 transition-colors">
+          <div class="text-center">
+            <div class="text-3xl mb-2">📎</div>
+            <p class="text-sm text-gray-600 mb-2">클릭하여 파일을 선택하거나 드래그 앤 드롭하세요</p>
+            <p class="text-xs text-gray-500">지원 형식: PDF, 이미지 (JPG, PNG, GIF), 마크다운 (.md), 텍스트 파일</p>
+            <%= form.file_field :files, 
+              multiple: true,
+              accept: ".pdf,.jpg,.jpeg,.png,.gif,.md,.txt,.doc,.docx",
+              class: "hidden",
+              onchange: "updateFileList(this)" %>
+            <button type="button" class="mt-3 inline-flex items-center justify-center rounded-md text-sm font-medium bg-gray-100 hover:bg-gray-200 px-3 py-2" onclick="this.previousElementSibling.click()">
+              파일 선택
+            </button>
+          </div>
+          <div id="fileList" class="mt-4 space-y-2 hidden">
+            <p class="text-sm font-medium text-gray-700">선택된 파일:</p>
+            <ul id="fileListItems" class="space-y-1 text-sm text-gray-600">
+            </ul>
+          </div>
+        </div>
+        
+        <% if @post.files.attached? %>
+          <div class="mt-4">
+            <p class="text-sm font-medium text-gray-700 mb-2">기존 첨부 파일:</p>
+            <div class="space-y-2">
+              <% @post.files.each do |file| %>
+                <div class="flex items-center justify-between bg-gray-50 p-2 rounded">
+                  <span class="flex items-center">
+                    <span class="mr-2">📎</span>
+                    <%= file.filename %>
+                    <span class="text-gray-500 ml-2">(<%= number_to_human_size(file.byte_size) %>)</span>
+                  </span>
+                </div>
+              <% end %>
+            </div>
+            <p class="text-xs text-gray-500 mt-1">* 새 파일을 업로드하면 기존 파일에 추가됩니다.</p>
+          </div>
+        <% end %>
+      </div>
+
       <div class="mt-6 flex items-center space-x-4">
         <%= form.submit "수정 저장", class: "bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 cursor-pointer" %>
         <%= link_to "취소", @post, class: "text-gray-600 hover:text-gray-900" %>
@@ -98,3 +140,43 @@
     <% end %>
   </div>
 </div>
+
+<script>
+function updateFileList(input) {
+  const files = Array.from(input.files);
+  const fileList = document.getElementById('fileList');
+  const fileListItems = document.getElementById('fileListItems');
+  
+  if (files.length > 0) {
+    fileList.classList.remove('hidden');
+    fileListItems.innerHTML = files.map(file => {
+      const fileSize = (file.size / 1024).toFixed(2) + ' KB';
+      return `
+        <li class="flex items-center bg-gray-50 p-2 rounded">
+          <span class="mr-2">${getFileIcon(file.name)}</span>
+          <span>${file.name}</span>
+          <span class="text-gray-500 ml-2">(${fileSize})</span>
+        </li>
+      `;
+    }).join('');
+  } else {
+    fileList.classList.add('hidden');
+  }
+}
+
+function getFileIcon(filename) {
+  const ext = filename.split('.').pop().toLowerCase();
+  const iconMap = {
+    'pdf': '📄',
+    'jpg': '🖼️',
+    'jpeg': '🖼️',
+    'png': '🖼️',
+    'gif': '🖼️',
+    'md': '📝',
+    'txt': '📄',
+    'doc': '📄',
+    'docx': '📄'
+  };
+  return iconMap[ext] || '📎';
+}
+</script>

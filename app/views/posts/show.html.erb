@@ -62,6 +62,45 @@
       <%= simple_format(@post.content) %>
     </div>
 
+    <% if @post.files.attached? %>
+      <div class="border-t pt-6 mb-8">
+        <h3 class="text-lg font-semibold mb-4">첨부 파일</h3>
+        <div class="space-y-2">
+          <% @post.files.each do |file| %>
+            <div class="flex items-center justify-between bg-gray-50 p-3 rounded-lg hover:bg-gray-100 transition-colors">
+              <div class="flex items-center">
+                <span class="mr-3 text-xl">
+                  <% case file.content_type %>
+                  <% when 'application/pdf' %>
+                    📄
+                  <% when /image/ %>
+                    🖼️
+                  <% when 'text/markdown', 'text/plain' %>
+                    📝
+                  <% else %>
+                    📎
+                  <% end %>
+                </span>
+                <div>
+                  <p class="font-medium"><%= file.filename %></p>
+                  <p class="text-sm text-gray-500"><%= number_to_human_size(file.byte_size) %></p>
+                </div>
+              </div>
+              <div class="flex items-center space-x-2">
+                <% if file.content_type.start_with?('image/') %>
+                  <%= link_to "미리보기", rails_blob_path(file, disposition: "inline"), 
+                      target: "_blank", 
+                      class: "text-sm text-blue-600 hover:text-blue-800" %>
+                <% end %>
+                <%= link_to "다운로드", rails_blob_path(file, disposition: "attachment"), 
+                    class: "text-sm text-green-600 hover:text-green-800" %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+
     <div class="flex items-center space-x-4 pt-6 border-t">
       <%= link_to "목록으로", root_path, class: "text-gray-600 hover:text-gray-900" %>
       
@@ -76,5 +115,57 @@
         <%= link_to "로그인", new_user_session_path, class: "text-blue-600 hover:text-blue-800" %>
       <% end %>
     </div>
+  </div>
+
+  <!-- 댓글 섹션 -->
+  <div class="bg-white rounded-lg shadow-sm p-6 mt-6">
+    <h3 class="text-xl font-semibold mb-4">댓글 <span class="text-gray-500 text-base">(<%= @post.comments.count %>)</span></h3>
+    
+    <!-- 댓글 목록 -->
+    <div class="space-y-4 mb-6">
+      <% @post.comments.recent.each do |comment| %>
+        <div class="border-b pb-4">
+          <div class="flex justify-between items-start">
+            <div class="flex-1">
+              <div class="flex items-center space-x-2 mb-1">
+                <span class="font-medium"><%= comment.user.name %></span>
+                <span class="text-sm text-gray-500"><%= comment.created_at.strftime('%Y.%m.%d %H:%M') %></span>
+              </div>
+              <p class="text-gray-700"><%= simple_format(comment.content) %></p>
+            </div>
+            <% if user_signed_in? && (comment.user == current_user || current_user.admin?) %>
+              <%= button_to "삭제", post_comment_path(@post, comment), method: :delete,
+                  data: { turbo_confirm: "댓글을 삭제하시겠습니까?" },
+                  class: "text-sm text-red-600 hover:text-red-800" %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+      
+      <% if @post.comments.empty? %>
+        <p class="text-gray-500 text-center py-4">아직 댓글이 없습니다. 첫 번째 댓글을 작성해보세요!</p>
+      <% end %>
+    </div>
+    
+    <!-- 댓글 작성 폼 -->
+    <% if user_signed_in? %>
+      <%= form_with model: [@post, @post.comments.build], local: true, class: "border-t pt-4" do |f| %>
+        <div class="mb-4">
+          <%= f.text_area :content, 
+              placeholder: "댓글을 입력하세요...", 
+              rows: 3,
+              class: "w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none" %>
+        </div>
+        <%= f.submit "댓글 작성", 
+            class: "inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2" %>
+      <% end %>
+    <% else %>
+      <div class="border-t pt-4 text-center">
+        <p class="text-gray-500 mb-2">댓글을 작성하려면 로그인이 필요합니다.</p>
+        <button data-action="click->login-modal#open" class="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2">
+          로그인
+        </button>
+      </div>
+    <% end %>
   </div>
 </div>

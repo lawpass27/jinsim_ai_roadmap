@@ -78,7 +78,7 @@ class PostsController < ApplicationController
   end
   
   def post_params
-    params.require(:post).permit(:title, :content, :category, :milestone_date, :milestone_status)
+    params.require(:post).permit(:title, :content, :category, :milestone_date, :milestone_status, files: [])
   end
   
   def check_permission!
