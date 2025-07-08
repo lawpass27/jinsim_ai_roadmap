@@ -1,5 +1,5 @@
 class DashboardController < ApplicationController
-  before_action :authenticate_user!
+  # 대시보드는 로그인 없이 접근 가능
   
   def index
     @milestones = Post.by_category('milestone').order(milestone_date: :asc)

@@ -23,24 +23,26 @@
   </head>
 
   <body class="bg-gray-50">
-    <% if user_signed_in? %>
-      <nav class="bg-white shadow-sm border-b border-gray-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div class="flex justify-between h-16">
-            <div class="flex items-center">
-              <%= link_to "진심 AI 로드맵", root_path, class: "text-xl font-bold text-blue-600" %>
-            </div>
-            <div class="flex items-center space-x-4">
+    <nav class="bg-white shadow-sm border-b border-gray-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16">
+          <div class="flex items-center">
+            <%= link_to "진심 AI 로드맵", root_path, class: "text-xl font-bold text-blue-600" %>
+          </div>
+          <div class="flex items-center space-x-4">
+            <% if user_signed_in? %>
               <span class="text-gray-700"><%= current_user.display_name %></span>
               <% if current_user.admin? %>
                 <%= link_to "관리자", admin_users_path, class: "text-gray-600 hover:text-gray-900" %>
               <% end %>
               <%= button_to "로그아웃", destroy_user_session_path, method: :delete, class: "text-gray-600 hover:text-gray-900" %>
-            </div>
+            <% else %>
+              <%= link_to "로그인", new_user_session_path, class: "bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700" %>
+            <% end %>
           </div>
         </div>
-      </nav>
-    <% end %>
+      </div>
+    </nav>
 
     <% if notice.present? %>
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">

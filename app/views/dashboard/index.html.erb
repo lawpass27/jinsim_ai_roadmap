@@ -3,7 +3,11 @@
   <div class="bg-white rounded-lg shadow-sm p-6">
     <div class="flex justify-between items-center mb-6">
       <h2 class="text-2xl font-bold text-gray-900">마일스톤 타임라인</h2>
-      <%= link_to "마일스톤 추가", new_post_path(category: 'milestone'), class: "bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700" %>
+      <% if user_signed_in? %>
+        <%= link_to "마일스톤 추가", new_post_path(category: 'milestone'), class: "bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700" %>
+      <% else %>
+        <%= link_to "로그인하여 마일스톤 추가", new_user_session_path, class: "bg-gray-600 text-white px-4 py-2 rounded-md hover:bg-gray-700" %>
+      <% end %>
     </div>
     
     <div class="relative">
@@ -63,7 +67,9 @@
     <div class="bg-white rounded-lg shadow-sm p-6">
       <div class="flex justify-between items-center mb-4">
         <h3 class="text-lg font-bold text-gray-900">AI스터디</h3>
-        <%= link_to "새 글 작성", new_post_path(category: 'study'), class: "text-blue-600 hover:text-blue-800 text-sm" %>
+        <% if user_signed_in? %>
+          <%= link_to "새 글 작성", new_post_path(category: 'study'), class: "text-blue-600 hover:text-blue-800 text-sm" %>
+        <% end %>
       </div>
       
       <% if @recent_study_posts.any? %>
@@ -78,7 +84,11 @@
             </div>
           <% end %>
         </div>
-        <%= link_to "전체 보기", study_posts_path, class: "block text-center text-sm text-blue-600 hover:text-blue-800 mt-4" %>
+        <% if user_signed_in? %>
+          <%= link_to "전체 보기", study_posts_path, class: "block text-center text-sm text-blue-600 hover:text-blue-800 mt-4" %>
+        <% else %>
+          <%= link_to "로그인하여 전체 보기", new_user_session_path, class: "block text-center text-sm text-gray-600 hover:text-gray-800 mt-4" %>
+        <% end %>
       <% else %>
         <p class="text-gray-500 text-sm text-center py-8">첫 번째 AI 스터디 내용을 공유해주세요!</p>
       <% end %>
@@ -88,7 +98,9 @@
     <div class="bg-white rounded-lg shadow-sm p-6">
       <div class="flex justify-between items-center mb-4">
         <h3 class="text-lg font-bold text-gray-900">서비스기획</h3>
-        <%= link_to "새 글 작성", new_post_path(category: 'planning'), class: "text-blue-600 hover:text-blue-800 text-sm" %>
+        <% if user_signed_in? %>
+          <%= link_to "새 글 작성", new_post_path(category: 'planning'), class: "text-blue-600 hover:text-blue-800 text-sm" %>
+        <% end %>
       </div>
       
       <% if @recent_planning_posts.any? %>
@@ -103,7 +115,11 @@
             </div>
           <% end %>
         </div>
-        <%= link_to "전체 보기", planning_posts_path, class: "block text-center text-sm text-blue-600 hover:text-blue-800 mt-4" %>
+        <% if user_signed_in? %>
+          <%= link_to "전체 보기", planning_posts_path, class: "block text-center text-sm text-blue-600 hover:text-blue-800 mt-4" %>
+        <% else %>
+          <%= link_to "로그인하여 전체 보기", new_user_session_path, class: "block text-center text-sm text-gray-600 hover:text-gray-800 mt-4" %>
+        <% end %>
       <% else %>
         <p class="text-gray-500 text-sm text-center py-8">서비스 기획 아이디어를 기록해주세요!</p>
       <% end %>
@@ -113,7 +129,9 @@
     <div class="bg-white rounded-lg shadow-sm p-6">
       <div class="flex justify-between items-center mb-4">
         <h3 class="text-lg font-bold text-gray-900">서비스개발</h3>
-        <%= link_to "새 글 작성", new_post_path(category: 'development'), class: "text-blue-600 hover:text-blue-800 text-sm" %>
+        <% if user_signed_in? %>
+          <%= link_to "새 글 작성", new_post_path(category: 'development'), class: "text-blue-600 hover:text-blue-800 text-sm" %>
+        <% end %>
       </div>
       
       <% if @recent_development_posts.any? %>
@@ -128,7 +146,11 @@
             </div>
           <% end %>
         </div>
-        <%= link_to "전체 보기", development_posts_path, class: "block text-center text-sm text-blue-600 hover:text-blue-800 mt-4" %>
+        <% if user_signed_in? %>
+          <%= link_to "전체 보기", development_posts_path, class: "block text-center text-sm text-blue-600 hover:text-blue-800 mt-4" %>
+        <% else %>
+          <%= link_to "로그인하여 전체 보기", new_user_session_path, class: "block text-center text-sm text-gray-600 hover:text-gray-800 mt-4" %>
+        <% end %>
       <% else %>
         <p class="text-gray-500 text-sm text-center py-8">개발 계획을 공유해주세요!</p>
       <% end %>

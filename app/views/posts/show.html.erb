@@ -65,11 +65,15 @@
     <div class="flex items-center space-x-4 pt-6 border-t">
       <%= link_to "목록으로", root_path, class: "text-gray-600 hover:text-gray-900" %>
       
-      <% if @post.milestone? || @post.user == current_user %>
-        <%= link_to "수정", edit_post_path(@post), class: "text-blue-600 hover:text-blue-800" %>
-        <%= button_to "삭제", @post, method: :delete, 
-            data: { turbo_confirm: "정말 삭제하시겠습니까?" },
-            class: "text-red-600 hover:text-red-800" %>
+      <% if user_signed_in? %>
+        <% if @post.milestone? || @post.user == current_user %>
+          <%= link_to "수정", edit_post_path(@post), class: "text-blue-600 hover:text-blue-800" %>
+          <%= button_to "삭제", @post, method: :delete, 
+              data: { turbo_confirm: "정말 삭제하시겠습니까?" },
+              class: "text-red-600 hover:text-red-800" %>
+        <% end %>
+      <% else %>
+        <%= link_to "로그인", new_user_session_path, class: "text-blue-600 hover:text-blue-800" %>
       <% end %>
     </div>
   </div>
