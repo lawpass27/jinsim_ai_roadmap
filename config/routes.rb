@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
-  # Devise routes (회원가입 비활성화)
-  devise_for :users, skip: [:registrations], controllers: {
-    sessions: 'users/sessions'
+  # Devise routes
+  devise_for :users, controllers: {
+    sessions: 'users/sessions',
+    registrations: 'users/registrations'
   }
   
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
